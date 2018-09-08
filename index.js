@@ -13,6 +13,13 @@ app.use(express.static("public"));
 // Socket setup
 var io = socket(server);
 
+// On socket connection
 io.on("connection", function(socket) {
   console.log("Made socket connection", socket.id);
+
+  //  Receive new device from client and update
+  //  and connected clients with new device
+  socket.on("addDevice", function(clientDeviceData) {
+    io.sockets.emit("addDevice", clientDeviceData);
+  });
 });
