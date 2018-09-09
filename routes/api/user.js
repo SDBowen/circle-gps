@@ -1,5 +1,6 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
+// const jwt = require("jsonwebtoken");
 
 const router = express.Router();
 
@@ -18,15 +19,18 @@ router.get("/test", (req, res) => {
 // @Access  Public
 router.post("/register", (req, res) => {
   User.findOne({ login: req.body.login }).then(user => {
+    // Check database for existing user name
     if (user) {
       return res.status(400).json({ user: "User already exists" });
     }
 
+    // New user payload for database
     const newUser = new User({
       login: req.body.login,
       password: req.body.password
     });
 
+    // Hash user password and save user to database
     bcrypt.genSalt(5, (err, salt) => {
       bcrypt.hash(newUser.password, salt, (genSaltError, hash) => {
         if (genSaltError) throw genSaltError;
@@ -45,10 +49,11 @@ router.post("/register", (req, res) => {
 // @Desc    Login user / JWT token return
 // @Access  Public
 router.post("/login", (req, res) => {
+  // User data from form input
   const { login } = req.body;
   const { password } = req.body;
 
-  // Find user by login
+  // Find user in database by login
   User.findOne({ login }).then(user => {
     // Check for user
     if (!user) {
