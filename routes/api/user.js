@@ -37,7 +37,33 @@ router.post("/register", (req, res) => {
           .catch(passwordError => console.log(passwordError));
       });
     });
-    return true;
+    return null;
+  });
+});
+
+// @Route   GET api/user/login
+// @Desc    Login user / JWT token return
+// @Access  Public
+router.post("/login", (req, res) => {
+  const { login } = req.body;
+  const { password } = req.body;
+
+  // Find user by login
+  User.findOne({ login }).then(user => {
+    // Check for user
+    if (!user) {
+      return res.status(404).json({ login: "User not found" });
+    }
+
+    // Check password
+    bcrypt.compare(password, user.password).then(isMatch => {
+      if (isMatch) {
+        res.json({ msg: "Success" });
+      }
+
+      return res.status(400).json({ password: "Incorrect password" });
+    });
+    return null;
   });
 });
 
