@@ -2,11 +2,11 @@ const express = require("express");
 
 const router = express.Router();
 
-// @Route   GET api/test
+// @Route   GET api/user/test
 // @Desc    Test route
 // @Access  Public
 router.get("/test", (req, res) => {
-  res.json({ msg: "working" });
+  res.json({ msg: "user working" });
 });
 
 module.exports = router;
