@@ -1,16 +1,16 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 const socket = require("socket.io");
 
 const device = require("./routes/api/device");
 const user = require("./routes/api/user");
 
-// App setup
 const app = express();
-const port = process.env.PORT || 4000;
-const server = app.listen(port, () => {
-  console.log(`Listening for requests on port ${port}`);
-});
+
+// Body parser moddleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // DB config
 const db = require("./config/dbConfig").mongoLocal;
@@ -27,6 +27,12 @@ mongoose
 
 app.get("/", (req, res) => {
   res.send("/public/index");
+});
+
+// Start server
+const port = process.env.PORT || 4000;
+const server = app.listen(port, () => {
+  console.log(`Listening for requests on port ${port}`);
 });
 
 // Use routes
