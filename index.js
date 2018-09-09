@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const socket = require("socket.io");
 
-const api = require("./routes/api");
+const coords = require("./routes/api/coords");
 
 // App setup
 const app = express();
@@ -29,7 +29,7 @@ app.get("/", (req, res) => {
 });
 
 // Use routes
-app.use("/api", api);
+app.use("/api/coords", coords);
 
 // Socket setup
 const io = socket(server);
