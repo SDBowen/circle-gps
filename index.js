@@ -1,16 +1,16 @@
-var express = require("express");
-var socket = require("socket.io");
+const express = require("express");
+const socket = require("socket.io");
 
 const api = require("./routes/api");
 
 // App setup
 const app = express();
 const port = process.env.PORT || 4000;
-const server = app.listen(port, function() {
+const server = app.listen(port, () => {
   console.log(`Listening for requests on port ${port}`);
 });
 
-app.get("/", function(req, res) {
+app.get("/", (req, res) => {
   res.send("/public/index");
 });
 
@@ -18,15 +18,15 @@ app.get("/", function(req, res) {
 app.use("/api", api);
 
 // Socket setup
-var io = socket(server);
+const io = socket(server);
 
 // On socket connection
-io.on("connection", function(socket) {
-  console.log("Made socket connection", socket.id);
+io.on("connection", currentSocket => {
+  console.log("Made socket connection", currentSocket.id);
 
   //  Receive new device from client and update
   //  and connected clients with new device
-  socket.on("addDevice", function(clientDeviceData) {
+  socket.on("addDevice", clientDeviceData => {
     io.sockets.emit("addDevice", clientDeviceData);
   });
 });
