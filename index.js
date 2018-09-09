@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const passport = require("passport");
 const socket = require("socket.io");
 
 const device = require("./routes/api/device");
@@ -29,15 +30,21 @@ app.get("/", (req, res) => {
   res.send("/public/index");
 });
 
+// Passport middleware
+app.use(passport.initialize());
+
+// Passport config
+require("./config/passport")(passport);
+
+// Use routes
+app.use("/api/device", device);
+app.use("/api/user", user);
+
 // Start server
 const port = process.env.PORT || 4000;
 const server = app.listen(port, () => {
   console.log(`Listening for requests on port ${port}`);
 });
-
-// Use routes
-app.use("/api/device", device);
-app.use("/api/user", user);
 
 // Socket setup
 const io = socket(server);
