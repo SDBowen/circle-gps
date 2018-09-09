@@ -1,4 +1,5 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const socket = require("socket.io");
 
 const api = require("./routes/api");
@@ -9,6 +10,19 @@ const port = process.env.PORT || 4000;
 const server = app.listen(port, () => {
   console.log(`Listening for requests on port ${port}`);
 });
+
+// DB config
+const db = require("./config/dbConfig").mongoLocal;
+const { options } = require("./config/dbConfig");
+
+// Connect to DB
+mongoose
+  .connect(
+    db,
+    options
+  )
+  .then(() => console.log("MongoDB Connected"))
+  .catch(err => console.log(err));
 
 app.get("/", (req, res) => {
   res.send("/public/index");
@@ -30,9 +44,3 @@ io.on("connection", currentSocket => {
     io.sockets.emit("addDevice", clientDeviceData);
   });
 });
-
-// app.post("/api/", function(req, res) {
-// res.send("testing");
-// var data = "test";
-// io.sockets.emit("coordUpdate", data);
-// });
