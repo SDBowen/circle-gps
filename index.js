@@ -3,8 +3,9 @@ var socket = require("socket.io");
 
 // App setup
 var app = express();
-var server = app.listen(4000, function() {
-  console.log("Listening for requests on port 4000");
+const port = process.env.PORT || 4000;
+var server = app.listen(port, function() {
+  console.log(`Listening for requests on port ${port}`);
 });
 
 // Static files
@@ -22,4 +23,8 @@ io.on("connection", function(socket) {
   socket.on("addDevice", function(clientDeviceData) {
     io.sockets.emit("addDevice", clientDeviceData);
   });
+});
+
+app.post("/api/", function(req, res) {
+  io.sockets.emit("coordUpdate", data);
 });
