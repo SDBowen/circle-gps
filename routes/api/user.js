@@ -6,6 +6,9 @@ const { jwtKey } = require("../../config/jwtConfig");
 
 const router = express.Router();
 
+// Load input validation
+const validateRegistrationInput = require("../../validation/register");
+
 // Load user model
 const User = require("../../models/user");
 
@@ -20,10 +23,19 @@ router.get("/test", (req, res) => {
 // @Desc    Register user
 // @Access  Public
 router.post("/register", (req, res) => {
+  // Pass user input to validation
+  const { errors, isValid } = validateRegistrationInput(req.body);
+
+  // Check validation, return any errors
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   User.findOne({ login: req.body.login }).then(user => {
     // Check database for existing user name
     if (user) {
-      return res.status(400).json({ user: "User already exists" });
+      errors.login = "Login already exists";
+      return res.status(400).json(errors);
     }
 
     // New user payload for database
