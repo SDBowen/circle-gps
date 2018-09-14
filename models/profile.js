@@ -8,18 +8,14 @@ const ProfileSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "users"
   },
-  devices: [
-    {
-      deviceId: {
-        type: String,
-        required: true
-      },
-      name: {
-        type: String,
-        required: true
-      }
-    }
-  ]
+  deviceId: {
+    type: String,
+    required: true
+  },
+  name: {
+    type: String,
+    required: true
+  }
 });
 
 const Profile = mongoose.model("profile", ProfileSchema);
