@@ -6,6 +6,7 @@ const socket = require("socket.io");
 
 const profile = require("./routes/api/profile");
 const user = require("./routes/api/user");
+const coords = require("./routes/api/coords");
 
 const app = express();
 
@@ -39,6 +40,7 @@ require("./config/passport")(passport);
 // Use routes
 app.use("/api/profile", profile);
 app.use("/api/user", user);
+app.use("/api/coords", coords);
 
 // Start server
 const port = process.env.PORT || 4000;
@@ -54,7 +56,7 @@ io.on("connection", currentSocket => {
   console.log("Made socket connection", currentSocket.id);
 
   //  Receive new device from client and update
-  //  and connected clients with new device
+  //  connected clients with new device
   socket.on("addDevice", clientDeviceData => {
     io.sockets.emit("addDevice", clientDeviceData);
   });
