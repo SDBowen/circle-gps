@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 const socket = require("socket.io");
 
-const device = require("./routes/api/device");
+const profile = require("./routes/api/profile");
 const user = require("./routes/api/user");
 
 const app = express();
@@ -37,7 +37,7 @@ app.use(passport.initialize());
 require("./config/passport")(passport);
 
 // Use routes
-app.use("/api/device", device);
+app.use("/api/profile", profile);
 app.use("/api/user", user);
 
 // Start server
