@@ -4,6 +4,9 @@ const passport = require("passport");
 
 const router = express.Router();
 
+// Load validations
+const validateProfileInput = require("../../validation/profile");
+
 // Load models
 const Profile = require("../../models/profile");
 const User = require("../../models/user");
@@ -25,6 +28,7 @@ router.get(
     const errors = {};
 
     Profile.findOne({ login: req.login.id })
+      .populate("user", ["login"])
       .then(profile => {
         if (!profile) {
           errors.noProfile = "No profile has been created";
@@ -44,13 +48,19 @@ router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    const errors = {};
+    const { errors, isValid } = validateProfileInput(req.body);
+
+    // Check validation
+    if (!isValid) {
+      // Return any errors with 400 status
+      return res.status(400).json(errors);
+    }
 
     // Get fields
     const profileFields = {};
     profileFields.user = req.user.id;
-    profileFields.deviceId = req.user.deviceId;
-    profileFields.deviceName = req.user.deviceName;
+    profileFields.deviceId = req.body.deviceId;
+    profileFields.deviceName = req.body.deviceName;
 
     Profile.findOne({ user: req.user.id }).then(profile => {
       if (profile) {

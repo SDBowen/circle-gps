@@ -12,7 +12,7 @@ const ProfileSchema = new Schema({
     type: String,
     required: true
   },
-  name: {
+  deviceName: {
     type: String,
     required: true
   }
