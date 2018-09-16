@@ -49,7 +49,7 @@ class Register extends Component {
           Password:
           <br />
           <input
-            type="text"
+            type="password"
             name="password"
             placeholder="Password"
             value={this.state.password}
