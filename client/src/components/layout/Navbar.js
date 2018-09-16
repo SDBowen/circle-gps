@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class Navbar extends Component {
   render() {
@@ -6,13 +7,16 @@ class Navbar extends Component {
       <nav>
         <ul>
           <li>
-            <a href="#">Home</a>
+            <Link to="/">Home</Link>
           </li>
           <li>
-            <a href="#">Profile</a>
+            <Link to="/profile">Profile</Link>
           </li>
           <li>
-            <a href="#">Logout</a>
+            <Link to="/login">Login</Link>
+          </li>
+          <li>
+            <Link to="/register">Register</Link>
           </li>
         </ul>
       </nav>
