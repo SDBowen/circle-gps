@@ -30,14 +30,16 @@ class Register extends Component {
     axios
       .post("/api/user/register", newUser)
       .then(res => console.log(res.data))
-      .catch(err => console.log(err));
+      .catch(error => this.setState({ errors: error.response.data }));
   };
 
   render() {
+    const { errors } = this.state;
+
     return (
       <div>
         <h1>Register</h1>
-        <form onSubmit={this.onSubmit}>
+        <form noValidate onSubmit={this.onSubmit}>
           Login:
           <br />
           <input
@@ -46,8 +48,8 @@ class Register extends Component {
             placeholder="Login"
             value={this.state.login}
             onChange={this.onChange}
-            required
           />
+          {errors.login && <p>{errors.login}</p>}
           <br />
           Password:
           <br />
@@ -57,8 +59,8 @@ class Register extends Component {
             placeholder="Password"
             value={this.state.password}
             onChange={this.onChange}
-            required
           />
+          {errors.password && <p>{errors.password}</p>}
           <br />
           Confirm Password:
           <br />
@@ -68,8 +70,8 @@ class Register extends Component {
             placeholder="Password"
             value={this.state.password2}
             onChange={this.onChange}
-            required
           />
+          {errors.password2 && <p>{errors.password2}</p>}
           <br />
           <input type="submit" value="Submit" />
         </form>
