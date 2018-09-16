@@ -33,10 +33,14 @@ class Register extends Component {
     };
 
     // New user object sent to api
+    // If successful, login is created and
+    // page is redirect to login
     // Errors are returned and displayed
     axios
       .post("/api/user/register", newUser)
-      .then(res => console.log(res.data))
+      .then(res => {
+        this.props.history.push("/login");
+      })
       .catch(error => this.setState({ errors: error.response.data }));
   };
 
@@ -74,7 +78,7 @@ class Register extends Component {
           Confirm Password:
           <br />
           <input
-            type="text"
+            type="password"
             name="password2"
             placeholder="Password"
             value={this.state.password2}
