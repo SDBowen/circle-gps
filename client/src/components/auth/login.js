@@ -35,7 +35,9 @@ class Login extends Component {
     // Errors are returned and displayed
     axios
       .post("/api/user/login", loginUser)
-      .then(res => console.log(res.data))
+      .then(res => {
+        localStorage.setItem("loginJwt", res.data.token);
+      })
       .catch(error => this.setState({ errors: error.response.data }));
   };
 
