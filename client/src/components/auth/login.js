@@ -44,6 +44,7 @@ class Login extends Component {
 
         const decoded = jwt_decode(token);
         const isAuthenticated = !isEmpty(decoded);
+
         if (isAuthenticated) {
           console.log(decoded);
           console.log(isAuthenticated);
