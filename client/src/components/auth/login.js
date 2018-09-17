@@ -4,6 +4,8 @@
 
 import React, { Component } from "react";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
+import isEmpty from "../../validations/isEmpty";
 
 class Login extends Component {
   constructor() {
@@ -25,20 +27,33 @@ class Login extends Component {
   onSubmit = event => {
     event.preventDefault();
 
+    // User entered data object
     const loginUser = {
       login: this.state.login,
       password: this.state.password
     };
 
-    // User object sent to api
-    // JWT set to local storage
-    // Errors are returned and displayed
     axios
+      // User object sent to api
       .post("/api/user/login", loginUser)
       .then(res => {
-        localStorage.setItem("loginJwt", res.data.token);
-        this.props.history.push("/");
+        // Save JWT from response data
+        const { token } = res.data;
+        // Save JWT to local storage
+        localStorage.setItem("loginJwt", token);
+
+        const decoded = jwt_decode(token);
+        const isAuthenticated = !isEmpty(decoded);
+        if (isAuthenticated) {
+          console.log(decoded);
+          console.log(isAuthenticated);
+          // Send user to home screen
+          this.props.history.push("/");
+        } else {
+          console.log("Auth error");
+        }
       })
+      // Return and display errors
       .catch(error => this.setState({ errors: error.response.data }));
   };
 
