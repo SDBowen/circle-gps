@@ -6,6 +6,8 @@ import Register from "./components/auth/register";
 import Login from "./components/auth/login";
 import jwt_decode from "jwt-decode";
 import isEmpty from "./validations/isEmpty";
+import { Provider } from "react-redux";
+import store from "./store";
 
 import "./App.css";
 
@@ -39,16 +41,18 @@ class App extends Component {
 
   render() {
     return (
-      <BrowserRouter>
-        <div className="App">
-          <Navbar {...this.state} />
-          <Route exact path="/" component={Landing} />
-          <div className="container">
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} />
+      <Provider store={store}>
+        <BrowserRouter>
+          <div className="App">
+            <Navbar {...this.state} />
+            <Route exact path="/" component={Landing} />
+            <div className="container">
+              <Route exact path="/register" component={Register} />
+              <Route exact path="/login" component={Login} />
+            </div>
           </div>
-        </div>
-      </BrowserRouter>
+        </BrowserRouter>
+      </Provider>
     );
   }
 }
