@@ -3,9 +3,6 @@
 // Errors are set to state if returned
 
 import React, { Component } from "react";
-import axios from "axios";
-import jwt_decode from "jwt-decode";
-import isEmpty from "../../validations/isEmpty";
 
 class Login extends Component {
   constructor() {
@@ -32,30 +29,6 @@ class Login extends Component {
       login: this.state.login,
       password: this.state.password
     };
-
-    axios
-      // User object sent to api
-      .post("/api/user/login", loginUser)
-      .then(res => {
-        // Save JWT from response data
-        const { token } = res.data;
-        // Save JWT to local storage
-        localStorage.setItem("loginJwt", token);
-
-        const decoded = jwt_decode(token);
-        const isAuthenticated = !isEmpty(decoded);
-
-        if (isAuthenticated) {
-          console.log(decoded);
-          console.log(isAuthenticated);
-          // Send user to home screen
-          this.props.history.push("/");
-        } else {
-          console.log("Auth error");
-        }
-      })
-      // Return and display errors
-      .catch(error => this.setState({ errors: error.response.data }));
   };
 
   render() {
