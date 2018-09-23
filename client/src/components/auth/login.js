@@ -3,6 +3,9 @@
 // Errors are set to state if returned
 
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { loginUser } from "../../actions/authActions";
 
 class Login extends Component {
   constructor() {
@@ -19,16 +22,28 @@ class Login extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.isAuthenticated) {
+      this.props.history.push("/dashboard");
+    }
+
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+  }
+
   // On form submit, user input is validated and sent to login api
   // JWT is returned is valid user, error returned if invalid
   onSubmit = event => {
     event.preventDefault();
 
     // User entered data object
-    const loginUser = {
+    const userData = {
       login: this.state.login,
       password: this.state.password
     };
+
+    this.props.loginUser(userData);
   };
 
   render() {
@@ -69,4 +84,18 @@ class Login extends Component {
   }
 }
 
-export default Login;
+Login.protoTypes = {
+  loginUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+
+export default connect(
+  mapStateToProps,
+  { loginUser }
+)(Login);
