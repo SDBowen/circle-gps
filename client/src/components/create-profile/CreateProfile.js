@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
+import { createProfile } from "../../actions/profileActions";
 
 class CreateProfile extends Component {
   constructor(props) {
@@ -24,10 +26,18 @@ class CreateProfile extends Component {
 
     // User entered data object
     const deviceData = {
-      login: this.state.deviceId,
-      password: this.state.deviceName
+      deviceId: this.state.deviceId,
+      deviceName: this.state.deviceName
     };
+
+    this.props.createProfile(deviceData, this.props.history);
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+  }
 
   render() {
     const { errors } = this.state;
@@ -46,7 +56,7 @@ class CreateProfile extends Component {
               onChange={this.onChange}
             />
             {/* If errors, display to user */}
-            {errors.device && <p>{errors.device}</p>}
+            {errors.deviceId && <p>{errors.deviceId}</p>}
             <br />
             Device Name:
             <br />
@@ -57,6 +67,8 @@ class CreateProfile extends Component {
               value={this.state.deviceName}
               onChange={this.onChange}
             />
+            {/* If errors, display to user */}
+            {errors.deviceName && <p>{errors.deviceName}</p>}
             <br />
             <input type="submit" value="Submit" />
           </form>
@@ -76,4 +88,7 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps)(CreateProfile);
+export default connect(
+  mapStateToProps,
+  { createProfile }
+)(withRouter(CreateProfile));
