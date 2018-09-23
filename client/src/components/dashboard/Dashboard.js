@@ -6,6 +6,10 @@ import { getCurrentProfile } from "../../actions/profileActions";
 import "../../../node_modules/leaflet/dist/leaflet.css";
 import L from "leaflet";
 
+import io from "socket.io-client";
+
+const socket = io("http://localhost:4000");
+
 class Dashboard extends Component {
   componentDidMount() {
     this.props.getCurrentProfile;
@@ -33,6 +37,14 @@ class Dashboard extends Component {
     })
       .addTo(map)
       .bindPopup("I am a circle.");
+
+    socket.on("coordsUpdate", data => {
+      const lat = data.lat;
+      const lng = data.lon;
+      circle.setLatLng([lat, lng]);
+
+      console.log(JSON.stringify(data));
+    });
   }
 
   render() {

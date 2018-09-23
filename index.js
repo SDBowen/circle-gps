@@ -49,15 +49,15 @@ const server = app.listen(port, () => {
 });
 
 // Socket setup
-// const io = socket(server);
+app.io = socket(server);
 
 // On socket connection
-// io.on("connection", currentSocket => {
-//   console.log("Made socket connection", currentSocket.id);
+app.io.on("connection", currentSocket => {
+  console.log("Made socket connection", currentSocket.id);
 
-//    Receive new device from client and update
-//    connected clients with new device
-//   socket.on("addDevice", clientDeviceData => {
-//     io.sockets.emit("addDevice", clientDeviceData);
-//   });
-// });
+  //  Receive new device from client and update
+  //  connected clients with new device
+  // socket.on("addDevice", clientDeviceData => {
+  //   io.sockets.emit("addDevice", clientDeviceData);
+  // });
+});
