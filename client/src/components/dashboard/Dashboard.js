@@ -10,10 +10,8 @@ class Dashboard extends Component {
   componentDidMount() {
     this.props.getCurrentProfile;
 
-    // const mymap = L.map("mapid").setView([51.505, -0.09], 13);
-
-    let map;
     // set up the map
+    let map;
     map = new L.Map("mapid");
 
     // create the tile layer with correct attribution

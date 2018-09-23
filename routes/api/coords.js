@@ -13,7 +13,7 @@ router.get("/test", (req, res) => {
 // @Route   POST api/coords
 // @Desc    Receive device coordinates
 // @Access  Public
-router.get("/:id", (req, res) => {
+router.post("/:id", (req, res) => {
   // Get device data
   const deviceData = {};
   deviceData.lat = req.query.lat;
