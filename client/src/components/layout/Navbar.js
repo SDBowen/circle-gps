@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { logoutUser } from "../../actions/authActions";
 
 class Navbar extends Component {
   onLogoutClick(event) {
@@ -9,7 +12,7 @@ class Navbar extends Component {
   }
 
   render() {
-    const { isAuthenticated, user } = this.props;
+    const { isAuthenticated, user } = this.props.auth;
 
     const authUserLinks = (
       <ul>
@@ -30,9 +33,6 @@ class Navbar extends Component {
     const noAuthLinks = (
       <ul>
         <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
           <Link to="/login">Login</Link>
         </li>
         <li>
@@ -45,4 +45,16 @@ class Navbar extends Component {
   }
 }
 
-export default Navbar;
+Navbar.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps,
+  { logoutUser }
+)(Navbar);
