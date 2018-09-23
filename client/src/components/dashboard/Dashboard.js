@@ -3,9 +3,38 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getCurrentProfile } from "../../actions/profileActions";
 
+import "../../../node_modules/leaflet/dist/leaflet.css";
+import L from "leaflet";
+
 class Dashboard extends Component {
   componentDidMount() {
     this.props.getCurrentProfile;
+
+    // const mymap = L.map("mapid").setView([51.505, -0.09], 13);
+
+    let map;
+    // set up the map
+    map = new L.Map("mapid");
+
+    // create the tile layer with correct attribution
+    var osmUrl = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+    var osmAttrib =
+      'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors';
+    var osm = new L.TileLayer(osmUrl, {
+      attribution: osmAttrib
+    });
+
+    // start the map in South-East England
+    map.setView(new L.LatLng(32.960066, -96.728388), 9);
+    map.addLayer(osm);
+
+    var circle = L.circle([32.960066, -96.728388], 500, {
+      color: "red",
+      fillColor: "#f03",
+      fillOpacity: 0.5
+    })
+      .addTo(map)
+      .bindPopup("I am a circle.");
   }
 
   render() {
@@ -26,7 +55,12 @@ class Dashboard extends Component {
       }
     }
 
-    return <div>{dashboardContent}</div>;
+    return (
+      <div>
+        <div>{dashboardContent}</div>
+        <div id="mapid" />
+      </div>
+    );
   }
 }
 
