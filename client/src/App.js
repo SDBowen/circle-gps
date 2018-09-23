@@ -5,11 +5,23 @@ import Landing from "./components/layout/Landing";
 import Register from "./components/auth/register";
 import Login from "./components/auth/login";
 import jwt_decode from "jwt-decode";
-import isEmpty from "./validations/isEmpty";
+import setAuthToken from "./utils/setAuthToken";
+import { setCurrentUser } from "./actions/authActions";
 import { Provider } from "react-redux";
 import store from "./store";
 
 import "./App.css";
+
+if (localStorage.loginJwt) {
+  // Set axios header with auth token
+  setAuthToken(localStorage.loginJwt);
+
+  // Decode token for user data
+  const decoded = jwt_decode(localStorage.loginJwt);
+
+  // Set user and isAuthenticated state
+  store.dispatch(setCurrentUser(decoded));
+}
 
 class App extends Component {
   constructor() {
@@ -18,25 +30,6 @@ class App extends Component {
       user: "",
       isAuthenticated: false
     };
-  }
-
-  // Check for auth token in local storage
-  checkForActiveToken = () => {
-    if (localStorage.loginJwt) {
-      const decoded = jwt_decode(localStorage.loginJwt);
-      const isAuthenticated = !isEmpty(decoded);
-
-      if (isAuthenticated) {
-        this.setState({
-          user: decoded.name,
-          isAuthenticated: isAuthenticated
-        });
-      }
-    }
-  };
-
-  componentDidMount() {
-    this.checkForActiveToken();
   }
 
   render() {
