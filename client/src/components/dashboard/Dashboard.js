@@ -12,7 +12,7 @@ const socket = io("http://localhost:4000");
 
 class Dashboard extends Component {
   componentDidMount() {
-    this.props.getCurrentProfile;
+    this.props.getCurrentProfile();
 
     // set up the map
     let map;
@@ -87,5 +87,5 @@ Dashboard.propTypes = {
 
 export default connect(
   mapStateToProps,
-  getCurrentProfile
+  { getCurrentProfile }
 )(Dashboard);
