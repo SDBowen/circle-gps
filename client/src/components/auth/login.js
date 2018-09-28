@@ -11,7 +11,7 @@ class Login extends Component {
   constructor() {
     super();
     this.state = {
-      login: "",
+      user: "",
       password: "",
       errors: {}
     };
@@ -44,7 +44,7 @@ class Login extends Component {
 
     // User entered data object
     const userData = {
-      login: this.state.login,
+      user: this.state.user,
       password: this.state.password
     };
 
@@ -56,19 +56,19 @@ class Login extends Component {
 
     return (
       <div>
-        <h1>Login</h1>
+        <h1>User</h1>
         <form onSubmit={this.onSubmit}>
-          Login:
+          User:
           <br />
           <input
             type="text"
-            name="login"
-            placeholder="Login"
-            value={this.state.login}
+            name="user"
+            placeholder="User"
+            value={this.state.user}
             onChange={this.onChange}
           />
           {/* If errors, display to user */}
-          {errors.login && <p>{errors.login}</p>}
+          {errors.user && <p>{errors.user}</p>}
           <br />
           Password:
           <br />

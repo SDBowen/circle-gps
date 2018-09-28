@@ -1,5 +1,5 @@
 // User registration component
-// User input is validated and a new login is created
+// User input is validated and a new user is created
 // Errors are set to state if returned
 
 import React, { Component } from "react";
@@ -12,7 +12,7 @@ class Register extends Component {
   constructor() {
     super();
     this.state = {
-      login: "",
+      user: "",
       password: "",
       password2: "",
       errors: {}
@@ -42,7 +42,7 @@ class Register extends Component {
 
     // New user object from form state
     const newUser = {
-      login: this.state.login,
+      user: this.state.user,
       password: this.state.password,
       password2: this.state.password2
     };
@@ -57,17 +57,17 @@ class Register extends Component {
       <div>
         <h1>Register</h1>
         <form noValidate onSubmit={this.onSubmit}>
-          Login:
+          User:
           <br />
           <input
             type="text"
-            name="login"
-            placeholder="Login"
-            value={this.state.login}
+            name="user"
+            placeholder="User"
+            value={this.state.user}
             onChange={this.onChange}
           />
           {/* If errors, display to user */}
-          {errors.login && <p>{errors.login}</p>}
+          {errors.user && <p>{errors.user}</p>}
           <br />
           Password:
           <br />

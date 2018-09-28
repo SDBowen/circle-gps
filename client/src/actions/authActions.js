@@ -6,7 +6,7 @@ import { GET_ERRORS } from "./types";
 import { SET_CURRENT_USER } from "./types";
 
 // New user object sent to api
-// If successful, login is created and
+// If successful, user is created and
 // page is redirect to login
 // Errors are returned and displayed
 export const registerUser = (userData, history) => dispatch => {

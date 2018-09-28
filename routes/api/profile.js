@@ -27,8 +27,8 @@ router.get(
   (req, res) => {
     const errors = {};
 
-    Profile.findOne({ login: req.login.id })
-      .populate("user", ["login"])
+    Profile.findOne({ user: req.user.id })
+      .populate("user", ["user"])
       .then(profile => {
         if (!profile) {
           errors.noProfile = "No profile has been created";

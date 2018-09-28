@@ -7,20 +7,20 @@ const validateRegisterInput = data => {
   // Data must be in string format for Validator
   // Check for empty object and replace with string value.
   const userRegistrationInput = {};
-  userRegistrationInput.login = !isEmpty(data.login) ? data.login : "";
+  userRegistrationInput.user = !isEmpty(data.user) ? data.user : "";
   userRegistrationInput.password = !isEmpty(data.password) ? data.password : "";
   userRegistrationInput.password2 = !isEmpty(data.password2)
     ? data.password2
     : "";
 
-  // Validate user login length
-  if (!Validator.isLength(userRegistrationInput.login, { min: 2, max: 20 })) {
-    errors.login = "Login must be between 2 and 20 characters";
+  // Validate user name length
+  if (!Validator.isLength(userRegistrationInput.user, { min: 2, max: 20 })) {
+    errors.user = "User must be between 2 and 20 characters";
   }
 
-  // Validate login is not empty
-  if (Validator.isEmpty(userRegistrationInput.login)) {
-    errors.login = "Login field is required";
+  // Validate user name is not empty
+  if (Validator.isEmpty(userRegistrationInput.user)) {
+    errors.user = "User field is required";
   }
 
   // Validate password is not empty

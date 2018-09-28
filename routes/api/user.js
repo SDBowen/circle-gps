@@ -32,16 +32,16 @@ router.post("/register", (req, res) => {
     return res.status(400).json(errors);
   }
 
-  User.findOne({ login: req.body.login }).then(user => {
+  User.findOne({ user: req.body.user }).then(user => {
     // Check database for existing user name
     if (user) {
-      errors.login = "Login already exists";
+      errors.user = "User already exists";
       return res.status(400).json(errors);
     }
 
     // New user payload for database
     const newUser = new User({
-      login: req.body.login,
+      user: req.body.user,
       password: req.body.password
     });
 
@@ -73,14 +73,14 @@ router.post("/login", (req, res) => {
   }
 
   // User data from form input
-  const { login } = req.body;
+  const { user } = req.body;
   const { password } = req.body;
 
-  // Find user in database by login
-  User.findOne({ login }).then(user => {
+  // Find user in database by user name
+  User.findOne({ user }).then(user => {
     // Check for user
     if (!user) {
-      errors.login = "User not found";
+      errors.user = "User not found";
       return res.status(404).json(errors);
     }
 
@@ -88,7 +88,7 @@ router.post("/login", (req, res) => {
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
         // Create JWT payload
-        const userPayload = { id: user.id, name: user.login };
+        const userPayload = { id: user.id, name: user.user };
 
         // Sign token
         jwt.sign(userPayload, jwtKey, { expiresIn: 43200 }, (err, token) => {
@@ -115,7 +115,7 @@ router.get(
   (req, res) => {
     res.json({
       id: req.user.id,
-      login: req.user.login
+      user: req.user.user
     });
   }
 );
