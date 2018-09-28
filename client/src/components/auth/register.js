@@ -7,7 +7,6 @@ import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { registerUser } from "../../actions/authActions";
-import { POINT_CONVERSION_UNCOMPRESSED } from "constants";
 
 class Register extends Component {
   constructor() {

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getCurrentProfile } from "../../actions/profileActions";
+import { Link } from "react-router-dom";
 
 import "../../../node_modules/leaflet/dist/leaflet.css";
 import L from "leaflet";
@@ -61,7 +62,13 @@ class Dashboard extends Component {
         dashboardContent = <h4>Profile will display here</h4>;
       } else {
         // No profile created
-        dashboardContent = <h4>Create a profile</h4>;
+        dashboardContent = (
+          <div>
+            <Link to="/create-profile">
+              <h4>Create a profile</h4>
+            </Link>
+          </div>
+        );
       }
     }
 
