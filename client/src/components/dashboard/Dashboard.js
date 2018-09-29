@@ -9,9 +9,15 @@ import L from "leaflet";
 
 import io from "socket.io-client";
 
-const socket = io("http://localhost:4000");
+const socket = io.connect("http://localhost:4000");
 
 class Dashboard extends Component {
+  selectDevice = event => {
+    event.preventDefault();
+    console.log(event.target.textContent);
+    socket.emit("addDevice", this.props.profile.profile.deviceId);
+  };
+
   componentDidMount() {
     this.props.getCurrentProfile();
 
@@ -31,6 +37,7 @@ class Dashboard extends Component {
     map.setView(new L.LatLng(32.960066, -96.728388), 9);
     map.addLayer(osm);
 
+    // Set initial pin on map
     var circle = L.circle([32.960066, -96.728388], 500, {
       color: "red",
       fillColor: "#f03",
@@ -59,7 +66,13 @@ class Dashboard extends Component {
     } else {
       if (Object.keys(profile).length > 0) {
         // Display user profile
-        dashboardContent = <h4>Profile will display here</h4>;
+        dashboardContent = (
+          <div>
+            <h4>Hello {user.name}!</h4>
+            <p>Tracking device:</p>
+            <button onClick={this.selectDevice}>{profile.deviceId}</button>
+          </div>
+        );
       } else {
         // No profile created
         dashboardContent = (

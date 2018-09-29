@@ -52,12 +52,10 @@ const server = app.listen(port, () => {
 app.io = socket(server);
 
 // On socket connection
-app.io.on("connection", currentSocket => {
-  console.log("Made socket connection", currentSocket.id);
+app.io.on("connection", client => {
+  client.on("addDevice", clientData => {
+    console.log(`Join event fired: ${clientData}`);
+  });
 
-  //  Receive new device from client and update
-  //  connected clients with new device
-  // socket.on("addDevice", clientDeviceData => {
-  //   io.sockets.emit("addDevice", clientDeviceData);
-  // });
+  console.log("Made socket connection", client.id);
 });
