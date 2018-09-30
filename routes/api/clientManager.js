@@ -25,6 +25,18 @@ const ClientManager = {
       `clientManager.addDevice: ${JSON.stringify(ClientManager.deviceList)}`
     );
   },
+  checkForActiveDevice: deviceId => {
+    const userList = [];
+    Object.keys(ClientManager.deviceList).forEach(key => {
+      ClientManager.deviceList[key].devices.forEach(value => {
+        if (value === deviceId) {
+          userList.push(key);
+        }
+      });
+    });
+    console.log(`ClientManager.checkForActiveDevice: ${userList}`);
+    return userList;
+  },
   onDisconnect: client => {
     delete ClientManager.deviceList[client];
     console.log(

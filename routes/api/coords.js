@@ -1,6 +1,6 @@
 const express = require("express");
-const socket = require("socket.io");
-const { deviceList } = require("../../routes/api/clientManager");
+// const socket = require("socket.io");
+const { checkForActiveDevice } = require("../../routes/api/clientManager");
 
 const router = express.Router();
 
@@ -26,6 +26,9 @@ router.post("/:id", (req, res) => {
       return res.status(400).json(errors);
     }
 
+    // Check if device is active by user
+    checkForActiveDevice(req.params.id);
+
     // Get device data
     const deviceData = {};
     deviceData.id = req.params.id;
@@ -41,6 +44,7 @@ router.post("/:id", (req, res) => {
         deviceData.lon
       }`
     });
+    return null;
   });
 });
 
