@@ -15,12 +15,16 @@ class Dashboard extends Component {
   selectDevice = event => {
     event.preventDefault();
     console.log(event.target.textContent);
-    socket.emit("addDevice", this.props.profile.profile.deviceId);
+    let payload = {};
+    payload.deviceId = this.props.profile.profile.deviceId;
+    payload.userId = this.props.profile.profile.user._id;
+    socket.emit("addDevice", payload);
   };
 
   componentDidMount() {
     this.props.getCurrentProfile();
 
+    socket.emit("addUser", this.props.auth.user.id);
     // set up the map
     let map;
     map = new L.Map("mapid");

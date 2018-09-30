@@ -1,5 +1,6 @@
 const express = require("express");
 const socket = require("socket.io");
+const { deviceList } = require("../../routes/api/clientManager");
 
 const router = express.Router();
 
@@ -12,7 +13,7 @@ router.get("/test", (req, res) => {
   res.json({ msg: "coords working" });
 });
 
-// @Route   POST api/coords
+// @Route   POST api/coords/:id
 // @Desc    Receive device coordinates
 // @Access  Public
 router.post("/:id", (req, res) => {
