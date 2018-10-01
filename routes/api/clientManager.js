@@ -25,7 +25,8 @@ const ClientManager = {
       `clientManager.addDevice: ${JSON.stringify(ClientManager.deviceList)}`
     );
   },
-  checkForActiveDevice: deviceId => {
+  // When coordinates are received, check if device is selected by active users
+  returnActiveUsersListeningForDevice: deviceId => {
     const userList = [];
     Object.keys(ClientManager.deviceList).forEach(key => {
       ClientManager.deviceList[key].devices.forEach(value => {

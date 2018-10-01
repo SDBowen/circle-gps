@@ -1,6 +1,8 @@
 const express = require("express");
 // const socket = require("socket.io");
-const { checkForActiveDevice } = require("../../routes/api/clientManager");
+const {
+  returnActiveUsersListeningForDevice
+} = require("../../routes/api/clientManager");
 
 const router = express.Router();
 
@@ -26,8 +28,7 @@ router.post("/:id", (req, res) => {
       return res.status(400).json(errors);
     }
 
-    // Check if device is active by user
-    checkForActiveDevice(req.params.id);
+    returnActiveUsersListeningForDevice(req.params.id);
 
     // Get device data
     const deviceData = {};
