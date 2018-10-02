@@ -26,7 +26,7 @@ const ClientManager = {
     );
   },
   // When coordinates are received, check if device is selected by active users
-  returnActiveUsersListeningForDevice: deviceId => {
+  usersListeningForDevice: deviceId => {
     const userList = [];
     Object.keys(ClientManager.deviceList).forEach(key => {
       ClientManager.deviceList[key].devices.forEach(value => {
