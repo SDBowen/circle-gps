@@ -27,8 +27,9 @@ router.post("/:id", (req, res) => {
       errors.api = "Device ID not found";
       return res.status(400).json(errors);
     }
-
-    returnActiveUsersListeningForDevice(req.params.id);
+    const activeUsersSocketId = returnActiveUsersListeningForDevice(
+      req.params.id
+    );
 
     // Get device data
     const deviceData = {};
@@ -38,7 +39,11 @@ router.post("/:id", (req, res) => {
 
     const { io } = req.app;
 
-    io.sockets.emit("coordsUpdate", deviceData);
+    // For each active user, send updated coordinates
+    activeUsersSocketId.forEach(user => {
+      io.to(user).emit("coordsUpdate", deviceData);
+      console.log(`activeUsersSocketId: ${user}`);
+    });
 
     res.json({
       msg: `device: ${deviceData.id} lat: ${deviceData.lat} lon: ${
