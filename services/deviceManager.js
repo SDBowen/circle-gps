@@ -1,5 +1,10 @@
+// Methods to handle additions, deletions, requests of the device list.
+// Device list holds currently connected users by socket ID. Each socket
+// ID is paired with the user login ID, and user selected gps devices.
+
 const DeviceManager = {
   deviceList: {},
+  // On connect, add user socket id to device list
   onConnect: client => {
     if (
       !Object.prototype.hasOwnProperty.call(DeviceManager.deviceList, client)
@@ -9,6 +14,7 @@ const DeviceManager = {
       DeviceManager.deviceList[client.id].devices = [];
     }
   },
+  // On login, add user id to device list
   addUser: (clientId, userId) => {
     // ADD CHECK FOR USER ALREADY IN DEVICE LIST
     DeviceManager.deviceList[clientId].user = userId;
@@ -16,6 +22,7 @@ const DeviceManager = {
       `DeviceManager.addUser: ${JSON.stringify(DeviceManager.deviceList)}`
     );
   },
+  // Add user selected device to device list
   addDevice: (deviceId, client) => {
     // ADD HANDLE UNDEFINED CLIENT VARIABLE
     if (DeviceManager.deviceList[client].devices.indexOf(deviceId) === -1) {
@@ -38,6 +45,7 @@ const DeviceManager = {
     console.log(`DeviceManager.checkForActiveDevice: ${userList}`);
     return userList;
   },
+  // Delete user from device list
   onDisconnect: client => {
     delete DeviceManager.deviceList[client];
     console.log(
