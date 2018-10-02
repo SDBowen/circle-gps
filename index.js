@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const socket = require("socket.io");
-const clientManager = require("./routes/api/clientManager");
+const DeviceManager = require("./services/deviceManager");
 
 const profile = require("./routes/api/profile");
 const user = require("./routes/api/user");
@@ -54,15 +54,15 @@ app.io = socket(server);
 
 // On socket connection
 app.io.on("connection", client => {
-  clientManager.onConnect(client);
+  DeviceManager.onConnect(client);
   client.on("addUser", clientData => {
-    clientManager.addUser(client.id, clientData);
+    DeviceManager.addUser(client.id, clientData);
   });
   client.on("addDevice", clientData => {
-    clientManager.addDevice(clientData.deviceId, client.id);
+    DeviceManager.addDevice(clientData.deviceId, client.id);
   });
   client.on("disconnect", () => {
-    clientManager.onDisconnect(client.id);
+    DeviceManager.onDisconnect(client.id);
   });
 
   console.log("Made socket connection", client.id);
