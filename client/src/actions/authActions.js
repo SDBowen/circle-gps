@@ -5,7 +5,7 @@ import jwt_decode from "jwt-decode";
 import { GET_ERRORS } from "./types";
 import { SET_CURRENT_USER } from "./types";
 
-// New user object sent to api
+// New user object sent to server
 // If successful, user is created and
 // page is redirect to login
 // Errors are returned and displayed
@@ -24,7 +24,7 @@ export const registerUser = (userData, history) => dispatch => {
 // Login - Get user token
 export const loginUser = userData => dispatch => {
   axios
-    // User object sent to api
+    // User object sent to server
     .post("/api/user/login", userData)
     .then(res => {
       // Save JWT from response data
@@ -32,7 +32,10 @@ export const loginUser = userData => dispatch => {
       // Save JWT to local storage
       localStorage.setItem("loginJwt", token);
 
+      // Set axios auth headers
       setAuthToken(token);
+
+      // Decode token to retreive user detail
       const decoded = jwt_decode(token);
 
       // Set current user
@@ -60,6 +63,6 @@ export const logoutUser = () => dispatch => {
   localStorage.removeItem("loginJwt");
   // Remove token from axios header
   setAuthToken(false);
-  // Set current user to {}
+  // Set current user to empty object
   dispatch(setCurrentUser({}));
 };
