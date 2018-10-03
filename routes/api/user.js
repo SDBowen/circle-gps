@@ -13,13 +13,6 @@ const validateLoginInput = require("../../validation/login");
 // Load user model
 const User = require("../../models/user");
 
-// @Route   GET api/user/test
-// @Desc    Test route
-// @Access  Public
-router.get("/test", (req, res) => {
-  res.json({ msg: "user working" });
-});
-
 // @Route   POST api/user/register
 // @Desc    Register user
 // @Access  Public
@@ -58,6 +51,7 @@ router.post("/register", (req, res) => {
     });
     return null;
   });
+  return null;
 });
 
 // @Route   GET api/user/login
@@ -72,23 +66,23 @@ router.post("/login", (req, res) => {
     return res.status(400).json(errors);
   }
 
-  // User data from form input
+  // Get user data from form input
   const { user } = req.body;
   const { password } = req.body;
 
   // Find user in database by user name
-  User.findOne({ user }).then(user => {
+  User.findOne({ user }).then(returnedUser => {
     // Check for user
-    if (!user) {
+    if (!returnedUser) {
       errors.user = "User not found";
       return res.status(404).json(errors);
     }
 
     // Check password
-    bcrypt.compare(password, user.password).then(isMatch => {
+    bcrypt.compare(password, returnedUser.password).then(isMatch => {
       if (isMatch) {
         // Create JWT payload
-        const userPayload = { id: user.id, name: user.user };
+        const userPayload = { id: returnedUser.id, name: returnedUser.user };
 
         // Sign token
         jwt.sign(userPayload, jwtKey, { expiresIn: 43200 }, (err, token) => {
@@ -104,6 +98,7 @@ router.post("/login", (req, res) => {
     });
     return null;
   });
+  return null;
 });
 
 // @Route   GET api/user/current

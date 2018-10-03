@@ -24,7 +24,7 @@ const DeviceManager = {
   },
   // Add user selected device to device list
   addDevice: (deviceId, client) => {
-    // ADD HANDLE UNDEFINED CLIENT VARIABLE
+    // ADD HANDLE NULL CLIENT VARIABLE
     if (DeviceManager.deviceList[client].devices.indexOf(deviceId) === -1) {
       DeviceManager.deviceList[client].devices.push(deviceId);
     }
@@ -32,7 +32,7 @@ const DeviceManager = {
       `DeviceManager.addDevice: ${JSON.stringify(DeviceManager.deviceList)}`
     );
   },
-  // When coordinates are received, check if device is selected by active users
+  // When coordinates are received, check if user is listening for device
   usersListeningForDevice: deviceId => {
     const userList = [];
     Object.keys(DeviceManager.deviceList).forEach(key => {
