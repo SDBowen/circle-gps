@@ -45,7 +45,6 @@ class Dashboard extends Component {
       <div>
         <div>{dashboardContent}</div>
         <Map />
-        <div id="mapid" />
       </div>
     );
   }

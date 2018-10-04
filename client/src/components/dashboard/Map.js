@@ -13,10 +13,11 @@ const socket = io.connect("http://localhost:4000");
 class Map extends Component {
   selectDevice = event => {
     event.preventDefault();
-    console.log(event.target.textContent);
+
     let payload = {};
     payload.deviceId = this.props.profile.profile.deviceId;
     payload.userId = this.props.profile.profile.user._id;
+
     socket.emit("addDevice", payload);
   };
 
