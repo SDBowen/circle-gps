@@ -18,7 +18,12 @@ import Login from "./components/auth/login";
 import Dashboard from "./components/dashboard/Dashboard";
 import CreateProfile from "./components/create-profile/CreateProfile";
 
+import { receiveCoordinates } from "./actions/socketActions";
+
 import "./App.css";
+
+// Initialize socketio listener
+receiveCoordinates(store.dispatch);
 
 if (localStorage.loginJwt) {
   // Set axios header with auth token

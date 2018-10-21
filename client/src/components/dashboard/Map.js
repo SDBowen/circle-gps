@@ -6,24 +6,14 @@ import { connect } from "react-redux";
 import "../../../node_modules/leaflet/dist/leaflet.css";
 import L from "leaflet";
 
-import io from "socket.io-client";
-
-const socket = io.connect("http://localhost:4000");
-
 class Map extends Component {
-  selectDevice = event => {
-    event.preventDefault();
-
-    let payload = {};
-    payload.deviceId = this.props.profile.profile.deviceId;
-    payload.userId = this.props.profile.profile.user._id;
-
-    socket.emit("addDevice", payload);
-  };
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      mapPin: {}
+    };
+  }
   componentDidMount() {
-    socket.emit("addUser", this.props.auth.user.id);
-
     // set up the map
     let map;
     map = new L.Map("mapid");
@@ -42,7 +32,7 @@ class Map extends Component {
     map.addLayer(osmTileLayer);
 
     // Set initial pin on map
-    var circle = L.circle([32.960066, -96.728388], 500, {
+    let initialMap = L.circle([32.160066, -96.128388], 500, {
       color: "red",
       fillColor: "#f03",
       fillOpacity: 0.5
@@ -50,13 +40,19 @@ class Map extends Component {
       .addTo(map)
       .bindPopup("I am a circle.");
 
-    socket.on("coordsUpdate", data => {
-      const lat = data.lat;
-      const lng = data.lon;
-      circle.setLatLng([lat, lng]);
+    this.setState({ mapPin: initialMap });
+  }
 
-      console.log(`coordsUpdate from client: ${JSON.stringify(data)}`);
-    });
+  componentDidUpdate(prevProps) {
+    // Update map marker if coordinates have changed
+    if (
+      JSON.stringify(this.props.socket) !== JSON.stringify(prevProps.socket)
+    ) {
+      this.state.mapPin.setLatLng([
+        this.props.socket.lastCoords.lat,
+        this.props.socket.lastCoords.lon
+      ]);
+    }
   }
 
   render() {
@@ -70,7 +66,8 @@ class Map extends Component {
 
 const mapStateToProps = state => ({
   profile: state.profile,
-  auth: state.auth
+  auth: state.auth,
+  socket: state.socket
 });
 
 Map.propTypes = {

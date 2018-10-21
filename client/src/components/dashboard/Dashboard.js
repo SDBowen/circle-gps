@@ -2,13 +2,25 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getCurrentProfile } from "../../actions/profileActions";
+import { addDevice, addUser } from "../../actions/socketActions";
 import { Link } from "react-router-dom";
 
 import Map from "./Map";
 
 class Dashboard extends Component {
+  selectDevice = event => {
+    event.preventDefault();
+
+    let payload = {};
+    payload.deviceId = this.props.profile.profile.deviceId;
+    payload.userId = this.props.profile.profile.user._id;
+
+    this.props.addDevice(payload);
+  };
+
   componentDidMount() {
     this.props.getCurrentProfile();
+    this.props.addUser(this.props.auth.user.id);
   }
 
   render() {
@@ -56,6 +68,8 @@ const mapStateToProps = state => ({
 });
 
 Dashboard.propTypes = {
+  addUser: PropTypes.func.isRequired,
+  addDevice: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired
@@ -63,5 +77,5 @@ Dashboard.propTypes = {
 
 export default connect(
   mapStateToProps,
-  { getCurrentProfile }
+  { getCurrentProfile, addDevice, addUser }
 )(Dashboard);
