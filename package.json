@@ -1,7 +1,7 @@
 {
-  "name": "opengps-api",
+  "name": "circlegps",
   "version": "1.0.0",
-  "description": "API for OpenGPS platform",
+  "description": "CircleGPS",
   "main": "index.js",
   "events": {
     "restart": "fuser -k 4000/tcp"
