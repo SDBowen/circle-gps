@@ -7,7 +7,7 @@ import { clearCurrentProfile } from "../../actions/profileActions";
 
 class Navbar extends Component {
   onLogoutClick(event) {
-    event.preventDefault;
+    event.preventDefault();
 
     // LOGOUT USER
     this.props.clearCurrentProfile();
@@ -15,7 +15,7 @@ class Navbar extends Component {
   }
 
   render() {
-    const { isAuthenticated, user } = this.props.auth;
+    const { isAuthenticated } = this.props.auth;
 
     const authUserLinks = (
       <ul>
