@@ -12,6 +12,7 @@ import store from "./store";
 import PrivateRoute from "./components/common/privateRoute";
 
 import Navbar from "./components/layout/Navbar";
+import Sidebar from "./components/layout/Sidebar";
 import Landing from "./components/layout/Landing";
 import Register from "./components/auth/register";
 import Login from "./components/auth/login";
@@ -63,6 +64,7 @@ class App extends Component {
         <BrowserRouter>
           <div className="App">
             <Navbar {...this.state} />
+            <Sidebar {...this.state} />
             <Route exact path="/" component={Landing} />
             <div className="container">
               <Route exact path="/register" component={Register} />
