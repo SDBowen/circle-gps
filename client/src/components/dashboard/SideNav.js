@@ -12,7 +12,7 @@ class SideNav extends Component {
         <ul className="side-nav">
           <li className="side-nav__item side-nav__item">
             <a href="#" className="side-nav__link">
-              <Icon className="user-nav__icon" name="target" />
+              <Icon className="side-nav__icon" name="target" />
               <span>Devices</span>
             </a>
           </li>
