@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import { clearCurrentProfile } from "../../actions/profileActions";
 
+import Icon from "../icons";
+
 class Navbar extends Component {
   onLogoutClick(event) {
     event.preventDefault();
@@ -15,6 +17,7 @@ class Navbar extends Component {
   }
 
   render() {
+    const { user } = this.props.auth;
     const { isAuthenticated } = this.props.auth;
 
     const authUserLinks = (
@@ -29,17 +32,15 @@ class Navbar extends Component {
         <nav className="user-nav">
           <div className="user-nav__icon-box">
             {/* <Link to="/profile"> */}
-            <svg className="user-nav__icon">
-              <use xlinkHref="./src/img/symbol.svg#icon-cog" />
-            </svg>
+            <Icon className="user-nav__icon" name="cog" />
             <span className="user-nav__settings">Settings</span>
             {/* </Link> */}
           </div>
           <div className="user-nav__user">
             <svg className="user-nav__icon">
-              <use xlinkHref="/src/img/symbol.svg#icon-lock" />
+              <Icon className="user-nav__icon" name="lock" />
             </svg>
-            <span className="user-nav__user-name">Alexandre</span>
+            <span className="user-nav__user-name">{user.name}</span>
           </div>
         </nav>
       </header>
