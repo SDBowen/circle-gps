@@ -6,6 +6,7 @@ import { addDevice, addUser } from "../../actions/socketActions";
 import { Link } from "react-router-dom";
 
 import Map from "./Map";
+import SideNav from "./SideNav";
 
 class Dashboard extends Component {
   selectDevice = event => {
@@ -46,8 +47,9 @@ class Dashboard extends Component {
     }
 
     return (
-      <div>
+      <div className="content">
         <div>{dashboardContent}</div>
+        <SideNav />
         <Map />
       </div>
     );

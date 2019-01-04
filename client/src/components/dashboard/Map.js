@@ -56,11 +56,7 @@ class Map extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <div id="mapid" className="map-view" />
-      </div>
-    );
+    return <div id="mapid" className="map-view" />;
   }
 }
 
