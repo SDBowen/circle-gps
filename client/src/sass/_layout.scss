@@ -1,0 +1,42 @@
+.container {
+  max-width: 99.5%;
+  min-height: 100%;
+  margin: $container-margin auto;
+
+  background-color: var(--color-grey-light-1);
+}
+
+.header {
+  height: $header-height;
+  background-color: var(--color-grey-dark-1);
+  border-bottom: var(--color-grey-light-2);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.content {
+  display: flex;
+}
+
+.sidebar {
+  background-color: var(--color-grey-dark-1);
+
+  flex: 0 0 10%;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.map-view {
+  background-color: var(--color-white);
+
+  flex: 1;
+
+  min-height: calc(100vh - #{$header-height} - (#{$container-margin} * 2));
+
+  // DEMO MAP
+  // background-image: url(../img/GoogleMap-1-1200x630-e1479510841629.jpg);
+  // background-size: cover;
+}

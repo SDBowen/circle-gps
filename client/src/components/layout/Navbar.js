@@ -18,19 +18,31 @@ class Navbar extends Component {
     const { isAuthenticated } = this.props.auth;
 
     const authUserLinks = (
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/profile">Profile</Link>
-        </li>
-        <li>
-          <a href="" onClick={this.onLogoutClick.bind(this)}>
-            Logout
-          </a>
-        </li>
-      </ul>
+      <header className="header">
+        <div className="logo">
+          <Link to="/">
+            <span className="logo__icon" />
+            <span className="logo__text">CircleGPS</span>
+          </Link>
+        </div>
+
+        <nav className="user-nav">
+          <div className="user-nav__icon-box">
+            {/* <Link to="/profile"> */}
+            <svg className="user-nav__icon">
+              <use xlinkHref="./src/img/symbol.svg#icon-cog" />
+            </svg>
+            <span className="user-nav__settings">Settings</span>
+            {/* </Link> */}
+          </div>
+          <div className="user-nav__user">
+            <svg className="user-nav__icon">
+              <use xlinkHref="/src/img/symbol.svg#icon-lock" />
+            </svg>
+            <span className="user-nav__user-name">Alexandre</span>
+          </div>
+        </nav>
+      </header>
     );
 
     const noAuthLinks = (

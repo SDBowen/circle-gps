@@ -1,0 +1,52 @@
+:root {
+  --color-primary: #b02bbf;
+  --color-primary-light: #d189d9;
+  --color-primary-dark: #9300af;
+
+  --color-grey-light-1: #faf9f9;
+  --color-grey-light-2: #f4f2f2;
+  --color-grey-light-3: #f0eeee;
+  --color-grey-light-4: #ccc;
+
+  --color-grey-dark-1: #333;
+  --color-grey-dark-2: #777;
+  --color-grey-dark-3: #999;
+
+  --color-white: #fff;
+  --color-black: #000;
+  --color-rust: #c15124;
+}
+
+// SASS VARIABLES
+$header-height: 6rem;
+$container-margin: 0.5rem;
+
+// SASS MIXINS
+@mixin nav-menu-text {
+  font-size: 1.4rem;
+  letter-spacing: 0.1rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%; // 1rem = 10px   Browser default is 16px. To get a 10px default: 10px/16px = 62.5%
+}
+
+body {
+  font-family: "Fira Sans", sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-white);
+  background-color: var(--color-primary-dark);
+}

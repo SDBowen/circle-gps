@@ -36,20 +36,12 @@ class Dashboard extends Component {
         // Display user profile
         dashboardContent = (
           <div>
-            <h4>Hello {user.name}!</h4>
-            <p>Tracking device:</p>
-            <button onClick={this.selectDevice}>{profile.deviceId}</button>
+            {/* <button onClick={this.selectDevice}>{profile.deviceId}</button> */}
           </div>
         );
       } else {
         // No profile created
-        dashboardContent = (
-          <div>
-            <Link to="/create-profile">
-              <h4>Create a profile</h4>
-            </Link>
-          </div>
-        );
+        dashboardContent = <div />;
       }
     }
 
