@@ -46,7 +46,7 @@ app.use("/api/coords", coords);
 // Start server
 const port = process.env.PORT || 4000;
 const server = app.listen(port, () => {
-  console.log(`Listening for requests on port ${port}`);
+  console.log(`Server listening for requests on port ${port}`);
 });
 
 // Socket setup
