@@ -35,7 +35,9 @@ class SideNav extends Component {
     } else {
       if (Object.keys(profile).length > 0) {
         // Display user profile
-        deviceListContent = <Device profile={profile} />;
+        deviceListContent = (
+          <Device profile={profile} selectDevice={this.selectDevice} />
+        );
       } else {
         // No profile created
         deviceListContent = <div>'no profile'</div>;
