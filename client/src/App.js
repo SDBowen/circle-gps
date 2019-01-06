@@ -73,7 +73,7 @@ class App extends Component {
               <Switch>
                 <PrivateRoute
                   exact
-                  path="/create-profile"
+                  path="/add-device"
                   component={CreateProfile}
                 />
               </Switch>
