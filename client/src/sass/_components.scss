@@ -44,16 +44,18 @@
     align-items: center;
   }
 
-  & > div:hover {
+  & > a:hover {
     background-color: var(--color-grey-dark-2);
   }
 
-  & > div:hover &__icon {
+  & > a:hover &__icon {
     fill: var(--color-grey-dark-1);
   }
 
   &__icon-box {
     position: relative;
+    color: inherit;
+    text-decoration: inherit;
   }
 
   &__icon {

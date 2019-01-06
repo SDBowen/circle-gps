@@ -30,18 +30,14 @@ class Navbar extends Component {
         </div>
 
         <nav className="user-nav">
-          <div className="user-nav__icon-box">
-            {/* <Link to="/profile"> */}
+          <Link to="/profile" className="user-nav__icon-box">
             <Icon className="user-nav__icon" name="cog" />
             <span className="user-nav__settings">Settings</span>
-            {/* </Link> */}
-          </div>
-          <div className="user-nav__user">
-            <svg className="user-nav__icon">
-              <Icon className="user-nav__icon" name="lock" />
-            </svg>
+          </Link>
+          <Link to="/" className="user-nav__icon-box">
+            <Icon className="user-nav__icon" name="lock" />
             <span className="user-nav__user-name">{user.name}</span>
-          </div>
+          </Link>
         </nav>
       </header>
     );
