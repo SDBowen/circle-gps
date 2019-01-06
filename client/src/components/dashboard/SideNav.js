@@ -28,45 +28,30 @@ class SideNav extends Component {
   render() {
     const { profile, loading } = this.props.profile;
 
-    let dashboardContent;
+    let deviceListContent;
 
     if (profile === null || loading) {
-      dashboardContent = <h4>Loading...</h4>;
+      deviceListContent = <h4>Loading...</h4>;
     } else {
       if (Object.keys(profile).length > 0) {
         // Display user profile
-        dashboardContent = <Device profile={profile} />;
+        deviceListContent = <Device profile={profile} />;
       } else {
         // No profile created
-        dashboardContent = <div>'no profile'</div>;
+        deviceListContent = <div>'no profile'</div>;
       }
     }
 
     return (
       <nav className="sidebar">
         <ul className="side-nav">
-          <li className="side-nav__item side-nav__item">
+          <li className="">
             <a href="#" className="side-nav__link">
               <Icon className="side-nav__icon" name="target" />
               <span>Devices</span>
             </a>
           </li>
-          <li className="side-nav__item">
-            <a href="#" className="side-nav__link">
-              <span>Joans</span>
-            </a>
-          </li>
-          <li className="side-nav__item side-nav__item--active">
-            <a href="#" className="side-nav__link">
-              <span>Hoffman</span>
-            </a>
-          </li>
-          <li className="side-nav__item">
-            <a href="#" className="side-nav__link">
-              <span>Sommer</span>
-            </a>
-          </li>
-          <div>{dashboardContent}</div>
+          <div>{deviceListContent}</div>
         </ul>
       </nav>
     );
