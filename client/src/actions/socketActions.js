@@ -3,7 +3,7 @@ import io from "socket.io-client";
 import { UPDATE_COORDS } from "./types";
 
 // localhost or production server
-const socket = io.connect("http://localhost:5000");
+const socket = io.connect("https://intense-everglades-50142.herokuapp.com/");
 // debugging
 socket.on("connect", function() {
   console.log("connect event");

@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // DB config
-const db = require("./config/dbConfig").mongoLocal;
+const db = require("./config/dbConfig").mongoURI;
 const { options } = require("./config/dbConfig");
 
 // Connect to DB
