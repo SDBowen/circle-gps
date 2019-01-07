@@ -29,9 +29,8 @@ mongoose
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
 
-app.get("/", function(req, res) {
-  res.sendFile(path.join(__dirname, "client/build", "index.html"));
-});
+// Serve the static files from the React app
+app.use(express.static(path.join(__dirname, "client/build")));
 
 // Passport middleware
 app.use(passport.initialize());
@@ -39,10 +38,15 @@ app.use(passport.initialize());
 // Passport config
 require("./config/passport")(passport);
 
-// Use routes
+// API routes
 app.use("/api/profile", profile);
 app.use("/api/user", user);
 app.use("/api/coords", coords);
+
+// Handles any requests that don't match the ones above
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "/client/build/index.html"));
+});
 
 // Start server
 const port = process.env.PORT || 4000;
