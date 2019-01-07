@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // DB config
-const db = require("./config/dbConfig").mongoURI;
+const db = "mongodb://CircleGPS:CIRCLEprod13@ds149984.mlab.com:49984/circlegps";
 const { options } = require("./config/dbConfig");
 
 // Connect to DB
