@@ -10,7 +10,7 @@
     "server": "nodemon --delay 1500ms index.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon --delay 1500ms index.js"
   },
   "author": "",
   "license": "ISC",
@@ -36,5 +36,8 @@
     "eslint-plugin-react": "^7.12.3",
     "nodemon": "^1.18.9",
     "prettier": "^1.15.3"
+  },
+  "engines": {
+    "node": "11.x"
   }
 }

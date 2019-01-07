@@ -2,7 +2,8 @@ import io from "socket.io-client";
 
 import { UPDATE_COORDS } from "./types";
 
-const socket = io.connect("http://localhost:4000");
+// localhost or production server
+const socket = io.connect("http://localhost:5000");
 // debugging
 socket.on("connect", function() {
   console.log("connect event");
