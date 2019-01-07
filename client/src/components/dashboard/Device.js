@@ -7,7 +7,7 @@ import React from "react";
 const Device = props => (
   <li className="side-nav__item">
     <a href="#" className="side-nav__link" onClick={props.selectDevice}>
-      <span>{props.profile.deviceId}</span>
+      <span>{props.profile.deviceName}</span>
     </a>
   </li>
 );
