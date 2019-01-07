@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
+const path = require("path");
 const socket = require("socket.io");
 const DeviceManager = require("./services/deviceManager");
 
@@ -28,9 +29,8 @@ mongoose
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
 
-app.get("/", (req, res) => {
-  res.send("/public/index");
-});
+// Serve the static files from the React app
+app.use(express.static(path.join(__dirname, "client/build")));
 
 // Passport middleware
 app.use(passport.initialize());
@@ -38,10 +38,15 @@ app.use(passport.initialize());
 // Passport config
 require("./config/passport")(passport);
 
-// Use routes
+// API routes
 app.use("/api/profile", profile);
 app.use("/api/user", user);
 app.use("/api/coords", coords);
+
+// Handles any requests that don't match the ones above
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "/client/build/index.html"));
+});
 
 // Start server
 const port = process.env.PORT || 4000;
