@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 
 // DB config
 const db = "mongodb://CircleGPS:CIRCLEprod13@ds149984.mlab.com:49984/circlegps";
-const { options } = require("./config/dbConfig");
+const { options } = { useNewUrlParser: true };
 
 // Connect to DB
 mongoose
