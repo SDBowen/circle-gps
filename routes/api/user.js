@@ -85,12 +85,17 @@ router.post("/login", (req, res) => {
         const userPayload = { id: returnedUser.id, name: returnedUser.user };
 
         // Sign token
-        jwt.sign(userPayload, JWT_KEY, { expiresIn: 43200 }, (err, token) => {
-          res.json({
-            success: true,
-            token: `Bearer ${token}`
-          });
-        });
+        jwt.sign(
+          userPayload,
+          process.env.JWT_KEY,
+          { expiresIn: 43200 },
+          (err, token) => {
+            res.json({
+              success: true,
+              token: `Bearer ${token}`
+            });
+          }
+        );
         return null;
       }
       errors.password = "Incorrect password";
