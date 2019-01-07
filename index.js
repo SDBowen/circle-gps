@@ -28,7 +28,9 @@ mongoose
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
 
-app.use(express.static(path.join(__dirname, "client/build")));
+app.get("/", function(req, res) {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
 
 // Passport middleware
 app.use(passport.initialize());
