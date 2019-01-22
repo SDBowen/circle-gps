@@ -55,35 +55,55 @@ class Login extends Component {
     const { errors } = this.state;
 
     return (
-      <div>
-        <h1>User</h1>
-        <form onSubmit={this.onSubmit}>
-          User:
-          <br />
-          <input
-            type="text"
-            name="user"
-            placeholder="User"
-            value={this.state.user}
-            onChange={this.onChange}
-          />
-          {/* If errors, display to user */}
-          {errors.user && <p>{errors.user}</p>}
-          <br />
-          Password:
-          <br />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={this.state.password}
-            onChange={this.onChange}
-          />
-          {/* If errors, display to user */}
-          {errors.password && <p>{errors.password}</p>}
-          <br />
-          <input type="submit" value="Submit" />
-        </form>
+      <div className="section-login">
+        <div className="login-box">
+          <div className="login-box__header">
+            <div className="login-box__brand">
+              <p>CircleGPS</p>
+            </div>
+            <div className="login-box__links-box">
+              <div className="login-box__link">
+                <a href="#">Register</a>
+              </div>
+              <div className="login-box__link">
+                <a href="#">Login</a>
+              </div>
+            </div>
+          </div>
+          <form className="login-box__form" onSubmit={this.onSubmit}>
+            <div className="login-box__username">
+              <input
+                type="text"
+                name="user"
+                placeholder="User Name"
+                value={this.state.user}
+                onChange={this.onChange}
+              />
+              {/* If errors, display to user */}
+              {errors.user && <p className="login-box__error">{errors.user}</p>}
+            </div>
+            <div className="login-box__password">
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={this.state.password}
+                onChange={this.onChange}
+              />
+              {/* If errors, display to user */}
+              {errors.password && (
+                <p className="login-box__error">error message</p>
+              )}
+            </div>
+            <div className="login-box__submit">
+              <input
+                className="login-box__submit-button"
+                type="submit"
+                value="Login  >"
+              />
+            </div>
+          </form>
+        </div>
       </div>
     );
   }
