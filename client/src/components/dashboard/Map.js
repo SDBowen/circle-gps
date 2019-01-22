@@ -33,7 +33,7 @@ class Map extends Component {
     map.addLayer(osmTileLayer);
 
     // Set initial pin on map
-    let initialMap = L.circle([32.160066, -96.128388], 500, {
+    let initialMap = L.circle([32.160066, -96.128388], 200, {
       color: "red",
       fillColor: "#f03",
       fillOpacity: 0.5
