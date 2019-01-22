@@ -53,10 +53,10 @@ class Map extends Component {
         this.props.socket.lastCoords.lat,
         this.props.socket.lastCoords.lon
       ]);
-      this.state.mainMap.panTo([
-        this.props.socket.lastCoords.lat,
-        this.props.socket.lastCoords.lon
-      ]);
+      this.state.mainMap.setView(
+        [this.props.socket.lastCoords.lat, this.props.socket.lastCoords.lon],
+        18
+      );
     }
   }
 
