@@ -55,7 +55,7 @@ class Map extends Component {
       ]);
       this.state.mainMap.setView(
         [this.props.socket.lastCoords.lat, this.props.socket.lastCoords.lon],
-        18
+        15
       );
     }
   }
