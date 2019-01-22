@@ -10,7 +10,8 @@ class Map extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      mapPin: {}
+      mapPin: {},
+      mainMap: {}
     };
   }
   componentDidMount() {
@@ -40,7 +41,7 @@ class Map extends Component {
       .addTo(map)
       .bindPopup("CTA Blue Line");
 
-    this.setState({ mapPin: initialMap });
+    this.setState({ mapPin: initialMap, mainMap: map });
   }
 
   componentDidUpdate(prevProps) {
@@ -52,7 +53,7 @@ class Map extends Component {
         this.props.socket.lastCoords.lat,
         this.props.socket.lastCoords.lon
       ]);
-      map.panTo([
+      this.state.mainMap.panTo([
         this.props.socket.lastCoords.lat,
         this.props.socket.lastCoords.lon
       ]);
