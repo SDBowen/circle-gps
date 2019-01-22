@@ -1,0 +1,43 @@
+.section-settings {
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+
+  display: flex;
+}
+.settings-box {
+  flex-direction: column;
+
+  display: flex;
+
+  &__header {
+    justify-content: space-between;
+
+    display: flex;
+  }
+  &__option {
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+
+    display: flex;
+  }
+  &__form {
+    & > * {
+      margin-top: 1rem;
+    }
+  }
+  &__device-id {
+  }
+  &__device-name {
+  }
+
+  &__submit-button {
+    height: 3.5rem;
+    width: 100%;
+  }
+  &__error {
+    height: 0;
+    opacity: 0;
+  }
+}

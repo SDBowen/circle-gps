@@ -42,38 +42,52 @@ class CreateProfile extends Component {
   render() {
     const { errors } = this.state;
     return (
-      <div>
-        <div>Enter Profile Detail</div>
-        <div>
-          <form onSubmit={this.onSubmit}>
-            Device ID:
-            <br />
-            <input
-              type="text"
-              name="deviceId"
-              placeholder="Device ID"
-              value={this.state.deviceId}
-              onChange={this.onChange}
-            />
-            {/* If errors, display to user */}
-            {errors.deviceId && <p>{errors.deviceId}</p>}
-            <br />
-            Device Name:
-            <br />
-            <input
-              type="text"
-              name="deviceName"
-              placeholder="Device Name"
-              value={this.state.deviceName}
-              onChange={this.onChange}
-            />
-            {/* If errors, display to user */}
-            {errors.deviceName && <p>{errors.deviceName}</p>}
-            <br />
-            <input type="submit" value="Submit" />
-          </form>
+      <body>
+        <div class="section-settings">
+          <div class="settings-box">
+            <div class="settings-box__header">
+              <div class="settings-box__option">
+                <p>New Device</p>
+              </div>
+            </div>
+            <form class="settings-box__form" onSubmit={this.onSubmit}>
+              <div class="settings-box__device-id">
+                <input
+                  type="text"
+                  name="deviceId"
+                  placeholder="Device ID"
+                  value={this.state.deviceId}
+                  onChange={this.onChange}
+                />
+                {/* If errors, display to user */}
+                {errors.deviceId && (
+                  <p class="settings-box__error">error message</p>
+                )}
+              </div>
+              <div class="settings-box__device-name">
+                <input
+                  type="text"
+                  name="deviceName"
+                  placeholder="Device Name"
+                  value={this.state.deviceName}
+                  onChange={this.onChange}
+                />
+                {/* If errors, display to user */}
+                {errors.deviceName && (
+                  <p class="settings-box__error">error message</p>
+                )}
+              </div>
+              <div class="settings-box__submit">
+                <input
+                  class="settings-box__submit-button"
+                  type="submit"
+                  value="Add Device  >"
+                />
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
+      </body>
     );
   }
 }
