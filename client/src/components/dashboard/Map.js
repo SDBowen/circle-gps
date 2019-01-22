@@ -38,7 +38,7 @@ class Map extends Component {
       fillOpacity: 0.5
     })
       .addTo(map)
-      .bindPopup("I am a circle.");
+      .bindPopup("CTA Blue Line");
 
     this.setState({ mapPin: initialMap });
   }
@@ -49,6 +49,10 @@ class Map extends Component {
       JSON.stringify(this.props.socket) !== JSON.stringify(prevProps.socket)
     ) {
       this.state.mapPin.setLatLng([
+        this.props.socket.lastCoords.lat,
+        this.props.socket.lastCoords.lon
+      ]);
+      map.panTo([
         this.props.socket.lastCoords.lat,
         this.props.socket.lastCoords.lon
       ]);
