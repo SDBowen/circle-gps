@@ -26,7 +26,7 @@ class Navbar extends Component {
         <div className="logo">
           <Link to="/">
             <img
-              src="./img/circlegps-logo.png"
+              src="../../img/circlegps-logo.png"
               alt="Logo"
               class="logo__image"
             />
