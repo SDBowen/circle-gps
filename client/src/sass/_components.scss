@@ -5,25 +5,9 @@
   display: flex;
   align-items: center;
 
-  &__icon {
-    height: 4rem;
-    width: 4rem;
-    border-radius: 50%;
-
-    display: inline-block;
+  &__image {
+    height: 5rem;
     margin-left: 2em;
-
-    background-color: var(--color-primary-dark);
-  }
-
-  &__text {
-    margin-left: -2.5rem;
-
-    letter-spacing: 0.5rem;
-    font-weight: 700;
-    font-size: 1.8rem;
-
-    color: var(--color-white);
   }
 }
 

@@ -25,8 +25,11 @@ class Navbar extends Component {
       <header className="header">
         <div className="logo">
           <Link to="/">
-            <span className="logo__icon" />
-            <span className="logo__text">CircleGPS</span>
+            <img
+              src="./img/circlegps-logo.png"
+              alt="Logo"
+              class="logo__image"
+            />
           </Link>
         </div>
 
