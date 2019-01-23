@@ -6,6 +6,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
+import { Link } from "react-router-dom";
 
 class Login extends Component {
   constructor() {
@@ -64,10 +65,10 @@ class Login extends Component {
               </div>
               <div className="login-box__links-box">
                 <div className="login-box__link">
-                  <a href="#">Register</a>
+                  <Link to="/register">Register</Link>
                 </div>
                 <div className="login-box__link">
-                  <a href="#">Login</a>
+                  <Link to="/login">Login</Link>
                 </div>
               </div>
             </div>

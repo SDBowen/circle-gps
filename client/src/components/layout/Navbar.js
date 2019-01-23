@@ -47,9 +47,7 @@ class Navbar extends Component {
       </header>
     );
 
-    const noAuthLinks = <div />;
-
-    return <nav>{isAuthenticated ? authUserLinks : noAuthLinks}</nav>;
+    return <div>{isAuthenticated ? authUserLinks : null}</div>;
   }
 }
 
