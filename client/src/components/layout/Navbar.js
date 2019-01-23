@@ -41,7 +41,7 @@ class Navbar extends Component {
             onClick={this.onLogoutClick}
           >
             <Icon className="user-nav__icon" name="lock" />
-            <span className="user-nav__user-name">{user.name}</span>
+            <span className="user-nav__user-name">Logout</span>
           </Link>
         </nav>
       </header>
