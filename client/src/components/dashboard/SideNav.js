@@ -3,20 +3,24 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getCurrentProfile } from "../../actions/profileActions";
-import { addDevice, addUser } from "../../actions/socketActions";
+import { addDevice, removeDevice, addUser } from "../../actions/socketActions";
 import { Link } from "react-router-dom";
 
 import Icon from "../icons";
 import Device from "./Device";
 
 class SideNav extends Component {
-  selectDevice = deviceId => {
+  selectDevice = (deviceId, activeStatus) => {
     let payload = {};
 
     payload.deviceId = deviceId;
     payload.userId = this.props.auth.user.id;
 
-    this.props.addDevice(payload);
+    if (activeStatus) {
+      this.props.addDevice(payload);
+    } else {
+      this.props.removeDevice(payload);
+    }
   };
 
   componentDidMount() {
@@ -78,6 +82,7 @@ const mapStateToProps = state => ({
 SideNav.propTypes = {
   addUser: PropTypes.func.isRequired,
   addDevice: PropTypes.func.isRequired,
+  removeDevice: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired
@@ -85,5 +90,5 @@ SideNav.propTypes = {
 
 export default connect(
   mapStateToProps,
-  { getCurrentProfile, addDevice, addUser }
+  { getCurrentProfile, addDevice, removeDevice, addUser }
 )(SideNav);

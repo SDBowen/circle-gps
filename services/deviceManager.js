@@ -32,6 +32,20 @@ const DeviceManager = {
       `DeviceManager.addDevice: ${JSON.stringify(DeviceManager.deviceList)}`
     );
   },
+  // Remove user selected device from device list
+  removeDevice: (deviceId, client) => {
+    // ADD HANDLE NULL CLIENT VARIABLE
+    const deviceIndex = DeviceManager.deviceList[client].devices.indexOf(
+      deviceId
+    );
+
+    if (deviceIndex !== -1) {
+      DeviceManager.deviceList[client].devices.splice(deviceIndex, 1);
+    }
+    console.log(
+      `DeviceManager.removeDevice: ${JSON.stringify(DeviceManager.deviceList)}`
+    );
+  },
   // When coordinates are received, check if user is listening for device
   usersListeningForDevice: deviceId => {
     const userList = [];

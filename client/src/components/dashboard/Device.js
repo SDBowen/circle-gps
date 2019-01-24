@@ -9,14 +9,12 @@ class Device extends Component {
   }
 
   handleClick = deviceId => {
-    this.props.selectDevice(deviceId);
-  };
-
-  toggleActiveState() {
     const currentState = this.state.activeStatus;
 
-    this.setState({ activeStatus: !currentState });
-  }
+    this.setState({ activeStatus: !currentState }, function() {
+      this.props.selectDevice(deviceId, this.state.activeStatus);
+    });
+  };
 
   render() {
     return (
@@ -34,7 +32,6 @@ class Device extends Component {
             event.preventDefault();
 
             this.handleClick(this.props.device.deviceId);
-            this.toggleActiveState();
           }}
         >
           <span>{this.props.device.deviceName}</span>

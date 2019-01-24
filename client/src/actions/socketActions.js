@@ -16,6 +16,10 @@ export const addDevice = deviceData => () => {
   socket.emit("addDevice", deviceData);
 };
 
+export const removeDevice = deviceData => () => {
+  socket.emit("removeDevice", deviceData);
+};
+
 export const addUser = userData => () => {
   socket.emit("addUser", userData);
 };

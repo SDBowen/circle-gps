@@ -57,7 +57,7 @@ const server = app.listen(port, () => {
 // Socket setup
 app.io = socket(server);
 
-// On socket connection
+// On socket action
 app.io.on("connection", client => {
   DeviceManager.onConnect(client);
   client.on("addUser", clientData => {
@@ -65,6 +65,9 @@ app.io.on("connection", client => {
   });
   client.on("addDevice", clientData => {
     DeviceManager.addDevice(clientData.deviceId, client.id);
+  });
+  client.on("removeDevice", clientData => {
+    DeviceManager.removeDevice(clientData.deviceId, client.id);
   });
   client.on("disconnect", () => {
     DeviceManager.onDisconnect(client.id);
