@@ -37,9 +37,7 @@ class Map extends Component {
       color: "red",
       fillColor: "#f03",
       fillOpacity: 0.5
-    })
-      .addTo(map)
-      .bindPopup("CTA Blue Line");
+    }).addTo(map);
 
     this.setState({ mapPin: initialMap, mainMap: map });
   }

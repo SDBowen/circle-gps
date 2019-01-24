@@ -18,10 +18,7 @@ class Navbar extends Component {
   };
 
   render() {
-    const { user } = this.props.auth;
-    const { isAuthenticated } = this.props.auth;
-
-    const authUserLinks = (
+    return (
       <header className="header">
         <div className="logo">
           <Link to="/">
@@ -49,8 +46,6 @@ class Navbar extends Component {
         </nav>
       </header>
     );
-
-    return <div>{isAuthenticated ? authUserLinks : null}</div>;
   }
 }
 
