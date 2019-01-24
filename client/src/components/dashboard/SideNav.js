@@ -10,12 +10,11 @@ import Icon from "../icons";
 import Device from "./Device";
 
 class SideNav extends Component {
-  selectDevice = event => {
-    event.preventDefault();
-
+  selectDevice = deviceId => {
     let payload = {};
-    payload.deviceId = this.props.profile.profile.deviceId;
-    payload.userId = this.props.profile.profile.user._id;
+
+    payload.deviceId = deviceId;
+    payload.userId = this.props.auth.user.id;
 
     this.props.addDevice(payload);
   };
@@ -28,35 +27,46 @@ class SideNav extends Component {
   render() {
     const { profile, loading } = this.props.profile;
 
-    let deviceListContent;
-
     if (profile === null || loading) {
-      deviceListContent = <h4>Loading...</h4>;
+      return (
+        <nav className="sidebar">
+          <ul className="side-nav">
+            <li className="">
+              <a href="#" className="side-nav__link">
+                <Icon className="side-nav__icon" name="target" />
+                <span>Devices</span>
+              </a>
+            </li>
+            <div>Loading...</div>
+          </ul>
+        </nav>
+      );
     } else {
-      if (Object.keys(profile).length > 0) {
-        // Display user profile
-        deviceListContent = (
-          <Device profile={profile} selectDevice={this.selectDevice} />
-        );
-      } else {
-        // No profile created
-        deviceListContent = <div>'no profile'</div>;
-      }
+      return (
+        <nav className="sidebar">
+          <ul className="side-nav">
+            <li className="">
+              <a href="#" className="side-nav__link">
+                <Icon className="side-nav__icon" name="target" />
+                <span>Devices</span>
+              </a>
+            </li>
+            <div>
+              {/* <Device profile={profile} selectDevice={this.selectDevice} /> */}
+              {profile.map((device, index) => {
+                return (
+                  <Device
+                    key={index}
+                    device={device}
+                    selectDevice={this.selectDevice}
+                  />
+                );
+              })}
+            </div>
+          </ul>
+        </nav>
+      );
     }
-
-    return (
-      <nav className="sidebar">
-        <ul className="side-nav">
-          <li className="">
-            <a href="#" className="side-nav__link">
-              <Icon className="side-nav__icon" name="target" />
-              <span>Devices</span>
-            </a>
-          </li>
-          <div>{deviceListContent}</div>
-        </ul>
-      </nav>
-    );
   }
 }
 

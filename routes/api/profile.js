@@ -19,7 +19,7 @@ router.get(
     const errors = {};
 
     // Look up profile by user id
-    Profile.findOne({ user: req.user.id })
+    Profile.find({ user: req.user.id })
       // Return user profile and include user name
       // from user model. Check for empty profile.
       .populate("user", "user")
@@ -35,7 +35,7 @@ router.get(
 );
 
 // @Route   POST api/profile/
-// @Desc    Add user profile to database
+// @Desc    Add new device to database
 // @Access  Private
 router.post(
   "/",
@@ -56,33 +56,21 @@ router.post(
     profileFields.deviceId = req.body.deviceId;
     profileFields.deviceName = req.body.deviceName;
 
-    // Find user profile by user id
-    Profile.findOne({ user: req.user.id }).then(profile => {
-      if (profile) {
-        // Update if profile exists
-        Profile.findOneAndUpdate(
-          { user: req.user.id },
-          { $set: profileFields },
-          { new: true }
-        ).then(updatedProfile => res.json(updatedProfile));
-      } else {
-        // Check if profile exists (currently only device id)
-        Profile.findOne({ deviceId: profileFields.deviceId }).then(
-          existingProfile => {
-            if (existingProfile) {
-              errors.device = "That device already exists";
+    // Check if device id exists
+    Profile.findOne({ deviceId: profileFields.deviceId }).then(
+      existingProfile => {
+        if (existingProfile) {
+          errors.device = "That device already exists";
 
-              res.status(400).json(errors);
-            }
+          res.status(400).json(errors);
+        }
 
-            // Create new profile
-            new Profile(profileFields)
-              .save()
-              .then(createdProfile => res.json(createdProfile));
-          }
-        );
+        // Create new device
+        new Profile(profileFields)
+          .save()
+          .then(createdProfile => res.json(createdProfile));
       }
-    });
+    );
     return null;
   }
 );

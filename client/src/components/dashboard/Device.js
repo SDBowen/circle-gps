@@ -1,7 +1,3 @@
-// //////////////////////////////////////////////////////////
-// Review mockup when additonal device support is implemented
-// //////////////////////////////////////////////////////////
-
 import React, { Component } from "react";
 
 class Device extends Component {
@@ -11,6 +7,10 @@ class Device extends Component {
       activeStatus: false
     };
   }
+
+  handleClick = deviceId => {
+    this.props.selectDevice(deviceId);
+  };
 
   toggleActiveState() {
     const currentState = this.state.activeStatus;
@@ -30,12 +30,14 @@ class Device extends Component {
         <a
           href="#"
           className="side-nav__link"
-          onClick={e => {
-            this.props.selectDevice(e);
+          onClick={event => {
+            event.preventDefault();
+
+            this.handleClick(this.props.device.deviceId);
             this.toggleActiveState();
           }}
         >
-          <span>{this.props.profile.deviceName}</span>
+          <span>{this.props.device.deviceName}</span>
         </a>
       </li>
     );
