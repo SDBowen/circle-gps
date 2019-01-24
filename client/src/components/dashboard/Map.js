@@ -29,7 +29,7 @@ class Map extends Component {
     });
 
     // Set map starting point and tile layer
-    map.setView(new L.LatLng(32.960066, -96.728388), 9);
+    map.setView(new L.LatLng(32.960066, -96.728388), 5);
     map.addLayer(osmTileLayer);
 
     // Set initial pin on map
