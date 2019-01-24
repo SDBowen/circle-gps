@@ -7,6 +7,7 @@ import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { registerUser } from "../../actions/authActions";
+import { Link } from "react-router-dom";
 
 class Register extends Component {
   constructor() {
@@ -55,46 +56,72 @@ class Register extends Component {
 
     return (
       <div>
-        <h1>Register</h1>
-        <form noValidate onSubmit={this.onSubmit}>
-          User:
-          <br />
-          <input
-            type="text"
-            name="user"
-            placeholder="User"
-            value={this.state.user}
-            onChange={this.onChange}
-          />
-          {/* If errors, display to user */}
-          {errors.user && <p>{errors.user}</p>}
-          <br />
-          Password:
-          <br />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={this.state.password}
-            onChange={this.onChange}
-          />
-          {/* If errors, display to user */}
-          {errors.password && <p>{errors.password}</p>}
-          <br />
-          Confirm Password:
-          <br />
-          <input
-            type="password"
-            name="password2"
-            placeholder="Password"
-            value={this.state.password2}
-            onChange={this.onChange}
-          />
-          {/* If errors, display to user */}
-          {errors.password2 && <p>{errors.password2}</p>}
-          <br />
-          <input type="submit" value="Submit" />
-        </form>
+        <div className="section-login">
+          <div className="login-box">
+            <div className="login-box__header">
+              <div className="login-box__brand">
+                <p>Register</p>
+              </div>
+              <div className="login-box__links-box">
+                <div className="login-box__link">
+                  <Link to="/login">Login</Link>
+                </div>
+              </div>
+            </div>
+            <form
+              className="login-box__form"
+              noValidate
+              onSubmit={this.onSubmit}
+            >
+              <div className="login-box__username">
+                <input
+                  type="text"
+                  name="user"
+                  placeholder="User Name"
+                  value={this.state.user}
+                  onChange={this.onChange}
+                />
+                {/* If errors, display to user */}
+                {errors.user && (
+                  <p className="login-box__error">{errors.user}</p>
+                )}
+              </div>
+              <div className="login-box__password">
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  value={this.state.password}
+                  onChange={this.onChange}
+                />
+                {/* If errors, display to user */}
+                {errors.password && (
+                  <p className="login-box__error">{errors.password}</p>
+                )}
+              </div>
+              <div className="login-box__password">
+                <input
+                  type="password"
+                  name="password2"
+                  placeholder="Password"
+                  value={this.state.password2}
+                  onChange={this.onChange}
+                />
+                {/* If errors, display to user */}
+                {errors.password2 && (
+                  <p className="login-box__error">{errors.password2}</p>
+                )}
+              </div>
+              <div className="login-box__submit">
+                <input
+                  className="login-box__submit-button"
+                  type="submit"
+                  value="Register  >"
+                />
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     );
   }

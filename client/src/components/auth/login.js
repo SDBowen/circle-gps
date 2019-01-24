@@ -67,9 +67,6 @@ class Login extends Component {
                 <div className="login-box__link">
                   <Link to="/register">Register</Link>
                 </div>
-                <div className="login-box__link">
-                  <Link to="/login">Login</Link>
-                </div>
               </div>
             </div>
             <form className="login-box__form" onSubmit={this.onSubmit}>
@@ -96,7 +93,7 @@ class Login extends Component {
                 />
                 {/* If errors, display to user */}
                 {errors.password && (
-                  <p className="login-box__error">error message</p>
+                  <p className="login-box__error">{errors.password}</p>
                 )}
               </div>
               <div className="login-box__submit">
