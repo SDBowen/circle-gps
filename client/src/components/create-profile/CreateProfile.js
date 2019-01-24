@@ -42,7 +42,7 @@ class CreateProfile extends Component {
   render() {
     const { errors } = this.state;
     return (
-      <body>
+      <div>
         <div class="section-settings">
           <div class="settings-box">
             <div class="settings-box__header">
@@ -87,7 +87,7 @@ class CreateProfile extends Component {
             </form>
           </div>
         </div>
-      </body>
+      </div>
     );
   }
 }
