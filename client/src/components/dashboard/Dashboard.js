@@ -3,15 +3,19 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
+import Navbar from "../layout/Navbar";
 import Map from "./Map";
 import SideNav from "./SideNav";
 
 class Dashboard extends Component {
   render() {
     return (
-      <div className="content">
-        <SideNav />
-        <Map />
+      <div>
+        <Navbar />
+        <div className="content">
+          <SideNav />
+          <Map />
+        </div>
       </div>
     );
   }
