@@ -57,20 +57,21 @@ router.post(
     profileFields.deviceName = req.body.deviceName;
 
     // Check if device id exists
-    Profile.findOne({ deviceId: profileFields.deviceId }).then(
-      existingProfile => {
-        if (existingProfile) {
-          errors.device = "That device already exists";
+    Profile.findOne({
+      deviceId: profileFields.deviceId,
+      user: profileFields.user
+    }).then(existingProfile => {
+      if (existingProfile) {
+        errors.device = "That device already exists";
 
-          res.status(400).json(errors);
-        }
-
-        // Create new device
-        new Profile(profileFields)
-          .save()
-          .then(createdProfile => res.json(createdProfile));
+        return res.status(400).json(errors);
       }
-    );
+
+      // Create new device
+      new Profile(profileFields)
+        .save()
+        .then(createdProfile => res.json(createdProfile));
+    });
     return null;
   }
 );

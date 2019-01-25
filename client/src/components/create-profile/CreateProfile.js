@@ -60,8 +60,8 @@ class CreateProfile extends Component {
                   onChange={this.onChange}
                 />
                 {/* If errors, display to user */}
-                {errors.deviceId && (
-                  <p class="settings-box__error">error message</p>
+                {errors.device && (
+                  <p class="settings-box__error">{errors.device}</p>
                 )}
               </div>
               <div class="settings-box__device-name">
@@ -72,10 +72,6 @@ class CreateProfile extends Component {
                   value={this.state.deviceName}
                   onChange={this.onChange}
                 />
-                {/* If errors, display to user */}
-                {errors.deviceName && (
-                  <p class="settings-box__error">error message</p>
-                )}
               </div>
               <div class="settings-box__submit">
                 <input
