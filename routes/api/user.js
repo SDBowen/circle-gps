@@ -13,6 +13,8 @@ const validateLoginInput = require("../../validation/login");
 // Load user model
 const User = require("../../models/user");
 
+const DataSeed = require("../../services/dataSeed");
+
 // @Route   POST api/user/register
 // @Desc    Register user
 // @Access  Public
@@ -47,6 +49,7 @@ router.post("/register", (req, res) => {
           .save()
           .then(returnedUser => {
             res.json(returnedUser);
+            DataSeed.demoDevices(returnedUser);
           })
           .catch(passwordError => console.log(passwordError));
       });
