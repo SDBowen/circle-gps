@@ -10,7 +10,7 @@ class Map extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      mapPin: {},
+      mapPins: {},
       mainMap: {}
     };
   }
@@ -32,29 +32,36 @@ class Map extends Component {
     map.setView(new L.LatLng(32.960066, -96.728388), 5);
     map.addLayer(osmTileLayer);
 
-    // Set initial pin on map
-    let initialMap = L.circle([0, 0], 100, {
-      color: "red",
-      fillColor: "#f03",
-      fillOpacity: 0.5
-    }).addTo(map);
-
-    this.setState({ mapPin: initialMap, mainMap: map });
+    this.setState({ mainMap: map });
   }
 
   componentDidUpdate(prevProps) {
-    // Update map marker if coordinates have changed
     if (
+      // Check socket data for change
       JSON.stringify(this.props.socket) !== JSON.stringify(prevProps.socket)
     ) {
-      this.state.mapPin.setLatLng([
-        this.props.socket.lastCoords.lat,
-        this.props.socket.lastCoords.lon
-      ]);
-      this.state.mainMap.setView(
-        [this.props.socket.lastCoords.lat, this.props.socket.lastCoords.lon],
-        15
-      );
+      const lat = this.props.socket.lastCoords.lat;
+      const lon = this.props.socket.lastCoords.lon;
+      const incomingDeviceId = this.props.socket.lastCoords.id;
+
+      // check for existing map pin
+      if (incomingDeviceId in this.state.mapPins) {
+        this.state.mapPins[incomingDeviceId].setLatLng([lat, lon]);
+      } else {
+        // Create new pin
+
+        const newDeviceMarker = L.circle([lat, lon], 100, {
+          color: "red",
+          fillColor: "#f03",
+          fillOpacity: 0.5
+        }).addTo(this.state.mainMap);
+
+        let mapPins = this.state.mapPins;
+
+        mapPins[incomingDeviceId] = newDeviceMarker;
+
+        this.setState({ mapPins });
+      }
     }
   }
 
