@@ -50,6 +50,13 @@ router.post(
       return res.status(400).json(errors);
     }
 
+    if (req.user.name === "demo") {
+      // Return any errors with 400 status
+      errors.device = "Demo login can not add new devices";
+
+      return res.status(400).json(errors);
+    }
+
     // Get fields
     const profileFields = {};
     profileFields.user = req.user.id;

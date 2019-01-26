@@ -10,8 +10,8 @@ const DataSeed = {
       },
       {
         user,
-        deviceId: "sdbowen",
-        deviceName: "Steven (I made this!)"
+        deviceId: "ctabus",
+        deviceName: "Chicago Clark Bus"
       },
       {
         user,
