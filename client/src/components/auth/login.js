@@ -105,6 +105,9 @@ class Login extends Component {
               </div>
             </form>
           </div>
+          <p>Create a new user or use:</p>
+          <p>User: demo</p>
+          <p>Password: password</p>
         </div>
       </div>
     );
