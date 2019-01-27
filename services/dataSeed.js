@@ -6,12 +6,27 @@ const DataSeed = {
       {
         user,
         deviceId: "ctablue",
-        deviceName: "Chicago Blue Line"
+        deviceName: "Blue Line"
       },
       {
         user,
-        deviceId: "ladowntown",
-        deviceName: "LA Downtown Bus"
+        deviceId: "cta9",
+        deviceName: "Ashland"
+      },
+      {
+        user,
+        deviceId: "cta20",
+        deviceName: "Madison"
+      },
+      {
+        user,
+        deviceId: "cta22",
+        deviceName: "Clark"
+      },
+      {
+        user,
+        deviceId: "cta53",
+        deviceName: "Pulaski"
       }
     )
       .then(devices => {
