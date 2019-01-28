@@ -62,6 +62,20 @@ class Map extends Component {
 
         this.setState({ mapPins });
       }
+
+      if (this.props.socket.removeDevice) {
+        const deviceId = this.props.socket.removeDevice;
+
+        if (this.state.mapPins[deviceId]) {
+          this.state.mainMap.removeLayer(this.state.mapPins[deviceId]);
+        }
+
+        let mapPins = this.state.mapPins;
+
+        delete mapPins[deviceId];
+
+        this.setState({ mapPins });
+      }
     }
   }
 
