@@ -17,7 +17,6 @@ export const addDevice = deviceData => dispatch => {
     type: ADD_DEVICE,
     payload: deviceData.deviceId
   });
-  dispatch(stateReset);
 };
 
 export const removeDevice = deviceData => dispatch => {
@@ -26,7 +25,6 @@ export const removeDevice = deviceData => dispatch => {
     type: REMOVE_DEVICE,
     payload: deviceData.deviceId
   });
-  dispatch(stateReset);
 };
 
 export const addUser = userData => () => {
