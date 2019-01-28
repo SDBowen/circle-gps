@@ -6,7 +6,7 @@ import {
 } from "../actions/types";
 
 const initialState = {
-  lastCoords: { lat: 0, lon: 0 },
+  lastCoords: null,
   addDevice: null,
   removeDevice: null
 };
