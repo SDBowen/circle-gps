@@ -66,7 +66,10 @@ class Map extends Component {
         }
       }
 
-      if (this.props.socket.removeDevice) {
+      if (
+        this.props.socket.removeDevice &&
+        this.props.socket.removeDevice !== prevProps.socket.removeDevice
+      ) {
         const deviceId = this.props.socket.removeDevice;
         const mapPin = this.state.mapPins[deviceId];
 
