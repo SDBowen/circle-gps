@@ -1,16 +1,30 @@
 import io from "socket.io-client";
 
-import { UPDATE_COORDS } from "./types";
+import { UPDATE_COORDS, ADD_DEVICE, REMOVE_DEVICE, STATE_RESET } from "./types";
 
 // localhost or production server
 const socket = io.connect("https://intense-everglades-50142.herokuapp.com/");
 
-export const addDevice = deviceData => () => {
-  socket.emit("addDevice", deviceData);
+export const stateReset = () => dispatch => {
+  dispatch({
+    type: STATE_RESET
+  });
 };
 
-export const removeDevice = deviceData => () => {
+export const addDevice = deviceData => dispatch => {
+  socket.emit("addDevice", deviceData);
+  dispatch({
+    type: ADD_DEVICE,
+    payload: deviceData.deviceId
+  });
+};
+
+export const removeDevice = deviceData => dispatch => {
   socket.emit("removeDevice", deviceData);
+  dispatch({
+    type: REMOVE_DEVICE,
+    payload: deviceData.deviceId
+  });
 };
 
 export const addUser = userData => () => {

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { stateReset } from "../../actions/socketActions";
 
 import "../../../node_modules/leaflet/dist/leaflet.css";
 import L from "leaflet";
@@ -14,6 +15,7 @@ class Map extends Component {
       mainMap: {}
     };
   }
+
   componentDidMount() {
     // set up the map
     let map;
@@ -29,7 +31,7 @@ class Map extends Component {
     });
 
     // Set map starting point and tile layer
-    map.setView(new L.LatLng(32.960066, -96.728388), 5);
+    map.setView(new L.LatLng(41.8339037, -87.8720469), 5);
     map.addLayer(osmTileLayer);
 
     this.setState({ mainMap: map });
@@ -40,30 +42,52 @@ class Map extends Component {
       // Check socket data for change
       JSON.stringify(this.props.socket) !== JSON.stringify(prevProps.socket)
     ) {
-      const lat = this.props.socket.lastCoords.lat;
-      const lon = this.props.socket.lastCoords.lon;
-      const incomingDeviceId = this.props.socket.lastCoords.id;
+      if (this.props.socket.lastCoords) {
+        const lat = this.props.socket.lastCoords.lat;
+        const lon = this.props.socket.lastCoords.lon;
+        const incomingDeviceId = this.props.socket.lastCoords.id;
 
-      // check for existing map pin
-      if (incomingDeviceId in this.state.mapPins) {
-        this.state.mapPins[incomingDeviceId].setLatLng([lat, lon]);
-      } else {
-        // Create new pin
+        // check for existing map pin
+        if (incomingDeviceId in this.state.mapPins) {
+          this.state.mapPins[incomingDeviceId].setLatLng([lat, lon]);
+        } else {
+          // Create new pin
 
-        const newDeviceMarker = L.circle([lat, lon], 100, {
-          color: "red",
-          fillColor: "#f03",
-          fillOpacity: 0.5
-        }).addTo(this.state.mainMap);
+          const newDeviceMarker = L.circle([lat, lon], 100, {
+            color: "red",
+            fillColor: "#f03",
+            fillOpacity: 0.5
+          }).addTo(this.state.mainMap);
 
-        let mapPins = this.state.mapPins;
+          let mapPins = { ...this.state.mapPins };
+          mapPins[incomingDeviceId] = newDeviceMarker;
 
-        mapPins[incomingDeviceId] = newDeviceMarker;
+          this.setState({ mapPins });
+        }
+      }
 
-        this.setState({ mapPins });
+      if (
+        this.props.socket.removeDevice &&
+        this.props.socket.removeDevice !== prevProps.socket.removeDevice
+      ) {
+        const deviceId = this.props.socket.removeDevice;
+        const mapPin = this.state.mapPins[deviceId];
+
+        this.removeMapPin(mapPin, deviceId);
       }
     }
   }
+
+  removeMapPin = (pin, deviceId) => {
+    if (this.state.mainMap.hasLayer(pin)) {
+      this.state.mainMap.removeLayer(pin);
+    }
+
+    let mapPins = { ...this.state.mapPins };
+    delete mapPins[deviceId];
+
+    this.setState({ mapPins });
+  };
 
   render() {
     return <div id="mapid" className="map-view" />;
@@ -78,7 +102,11 @@ const mapStateToProps = state => ({
 
 Map.propTypes = {
   auth: PropTypes.object.isRequired,
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
+  stateReset: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps)(Map);
+export default connect(
+  mapStateToProps,
+  { stateReset }
+)(Map);
