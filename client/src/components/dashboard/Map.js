@@ -16,26 +16,6 @@ class Map extends Component {
     };
   }
 
-  addMapPin = () => {
-    console.log("remove fires");
-
-    this.setState((state, props) => {
-      const deviceId = props.socket.removeDevice;
-      let preMapPins = state.mapPins;
-      let preMainMap = state.mainMap;
-
-      if (preMapPins[deviceId]) {
-        preMainMap.removeLayer(preMapPins[deviceId]);
-      }
-
-      delete preMapPins[deviceId];
-
-      return { mapPins: preMapPins, mainMap: preMainMap };
-    });
-
-    this.props.stateReset();
-  };
-
   componentDidMount() {
     // set up the map
     let map;
@@ -89,6 +69,26 @@ class Map extends Component {
         addMapPin();
       }
     }
+  }
+
+  addMapPin() {
+    console.log("remove fires");
+
+    this.setState((state, props) => {
+      const deviceId = props.socket.removeDevice;
+      let preMapPins = state.mapPins;
+      let preMainMap = state.mainMap;
+
+      if (preMapPins[deviceId]) {
+        preMainMap.removeLayer(preMapPins[deviceId]);
+      }
+
+      delete preMapPins[deviceId];
+
+      return { mapPins: preMapPins, mainMap: preMainMap };
+    });
+
+    this.props.stateReset();
   }
 
   render() {
