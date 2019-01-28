@@ -42,28 +42,30 @@ class Map extends Component {
       // Check socket data for change
       JSON.stringify(this.props.socket) !== JSON.stringify(prevProps.socket)
     ) {
-      const lat = this.props.socket.lastCoords.lat;
-      const lon = this.props.socket.lastCoords.lon;
-      const incomingDeviceId = this.props.socket.lastCoords.id;
+      if (this.props.socket.lastCoords.id) {
+        const lat = this.props.socket.lastCoords.lat;
+        const lon = this.props.socket.lastCoords.lon;
+        const incomingDeviceId = this.props.socket.lastCoords.id;
 
-      // check for existing map pin
-      if (incomingDeviceId in this.state.mapPins) {
-        this.state.mapPins[incomingDeviceId].setLatLng([lat, lon]);
-      } else {
-        // Create new pin
+        // check for existing map pin
+        if (incomingDeviceId in this.state.mapPins) {
+          this.state.mapPins[incomingDeviceId].setLatLng([lat, lon]);
+        } else {
+          // Create new pin
 
-        const newDeviceMarker = L.circle([lat, lon], 100, {
-          color: "red",
-          fillColor: "#f03",
-          fillOpacity: 0.5
-        }).addTo(this.state.mainMap);
+          const newDeviceMarker = L.circle([lat, lon], 100, {
+            color: "red",
+            fillColor: "#f03",
+            fillOpacity: 0.5
+          }).addTo(this.state.mainMap);
 
-        this.setState(state => {
-          let mapPins = state.mapPins;
-          mapPins[incomingDeviceId] = newDeviceMarker;
+          this.setState(state => {
+            let mapPins = state.mapPins;
+            mapPins[incomingDeviceId] = newDeviceMarker;
 
-          return { mapPins };
-        });
+            return { mapPins };
+          });
+        }
       }
 
       if (this.props.socket.removeDevice) {
