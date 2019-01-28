@@ -79,6 +79,10 @@ class Map extends Component {
       let preMapPins = state.mapPins;
       let preMainMap = state.mainMap;
 
+      console.log(`deviceId ${deviceId}`);
+      console.log(`preMapPins ${preMapPins}`);
+      console.log(`preMainMap ${preMainMap}`);
+
       if (preMapPins[deviceId]) {
         preMainMap.removeLayer(preMapPins[deviceId]);
       }
