@@ -59,12 +59,10 @@ class Map extends Component {
             fillOpacity: 0.5
           }).addTo(this.state.mainMap);
 
-          this.setState(state => {
-            let mapPins = state.mapPins;
-            mapPins[incomingDeviceId] = newDeviceMarker;
+          let mapPins = { ...this.state.mapPins };
+          mapPins[incomingDeviceId] = newDeviceMarker;
 
-            return { mapPins };
-          });
+          this.setState({ mapPins });
         }
       }
 
