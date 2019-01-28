@@ -95,7 +95,7 @@ class Map extends Component {
       console.log("after delete");
       console.log(mapPins[deviceId]);
 
-      return { mapPins };
+      return { mapPins: mapPins };
     });
 
     this.props.stateReset();
