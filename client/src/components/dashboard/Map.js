@@ -78,7 +78,9 @@ class Map extends Component {
   }
 
   removeMapPin = (pin, deviceId) => {
-    this.state.mainMap.removeLayer(pin);
+    if (this.state.mainMap.hasLayer(pin)) {
+      this.state.mainMap.removeLayer(pin);
+    }
 
     let mapPins = { ...this.state.mapPins };
     delete mapPins[deviceId];
