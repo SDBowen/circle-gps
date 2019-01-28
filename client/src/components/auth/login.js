@@ -52,6 +52,18 @@ class Login extends Component {
     this.props.loginUser(userData);
   };
 
+  demoLogin = event => {
+    event.preventDefault();
+
+    // Demo login
+    const userData = {
+      user: "demo",
+      password: "password"
+    };
+
+    this.props.loginUser(userData);
+  };
+
   render() {
     const { errors } = this.state;
 
@@ -104,10 +116,16 @@ class Login extends Component {
                 />
               </div>
             </form>
+            <div className="demo-login">
+              <div className="demo-login__text">
+                <p>Just looking around? Login to the demo:</p>
+              </div>
+
+              <button className="demo-login__button" onClick={this.demoLogin}>
+                Demo Login
+              </button>
+            </div>
           </div>
-          <p>Create a new user or use:</p>
-          <p>User: demo</p>
-          <p>Password: password</p>
         </div>
       </div>
     );

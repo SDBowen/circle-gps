@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { createProfile } from "../../actions/profileActions";
+import { Link } from "react-router-dom";
 
 class CreateProfile extends Component {
   constructor(props) {
@@ -48,6 +49,11 @@ class CreateProfile extends Component {
             <div class="settings-box__header">
               <div class="settings-box__option">
                 <p>New Device</p>
+              </div>
+              <div className="settings-box__links-box">
+                <div className="settings-box__link">
+                  <Link to="/dashboard">Dashboard</Link>
+                </div>
               </div>
             </div>
             <form class="settings-box__form" onSubmit={this.onSubmit}>

@@ -15,6 +15,19 @@
 
     display: flex;
   }
+  &__links-box {
+    display: flex;
+  }
+  &__link {
+    & a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    &:last-child {
+      margin-left: 2rem;
+    }
+  }
   &__option {
     justify-content: center;
     align-content: center;

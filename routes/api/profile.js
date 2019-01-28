@@ -50,7 +50,7 @@ router.post(
       return res.status(400).json(errors);
     }
 
-    if (req.user.id === "5c4bd0d15d25490017a802f0") {
+    if (req.user.id === "5c4f6e15c2d0ed0017955703") {
       // Return any errors with 400 status
       errors.device = "Demo login can not add new devices";
 
