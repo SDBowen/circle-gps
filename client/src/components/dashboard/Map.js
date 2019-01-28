@@ -66,12 +66,12 @@ class Map extends Component {
       }
 
       if (this.props.socket.removeDevice) {
-        addMapPin();
+        this.addMapPin();
       }
     }
   }
 
-  addMapPin() {
+  addMapPin = () => {
     console.log("remove fires");
 
     this.setState((state, props) => {
@@ -89,7 +89,7 @@ class Map extends Component {
     });
 
     this.props.stateReset();
-  }
+  };
 
   render() {
     return <div id="mapid" className="map-view" />;
