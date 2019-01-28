@@ -82,8 +82,9 @@ class Map extends Component {
 
     let mapPins = { ...this.state.mapPins };
     delete mapPins[deviceId];
-    this.setState({ mapPins });
-    this.props.stateReset();
+    this.setState({ mapPins }, () => {
+      this.props.stateReset();
+    });
   };
 
   render() {
