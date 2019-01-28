@@ -31,7 +31,7 @@ class Map extends Component {
     });
 
     // Set map starting point and tile layer
-    map.setView(new L.LatLng(32.960066, -96.728388), 5);
+    map.setView(new L.LatLng(41.8339037, -87.8720469), 5);
     map.addLayer(osmTileLayer);
 
     this.setState({ mainMap: map });

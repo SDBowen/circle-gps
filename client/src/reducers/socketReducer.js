@@ -16,6 +16,7 @@ export default function(state = initialState, action) {
     case ADD_DEVICE:
       return {
         ...state,
+        removeDevice: null,
         addDevice: action.payload
       };
     case REMOVE_DEVICE:
