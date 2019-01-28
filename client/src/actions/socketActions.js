@@ -15,7 +15,7 @@ export const addDevice = deviceData => dispatch => {
   socket.emit("addDevice", deviceData);
   dispatch({
     type: ADD_DEVICE,
-    payload: payload
+    payload: deviceData.deviceId
   });
   dispatch(stateReset);
 };
@@ -24,7 +24,7 @@ export const removeDevice = deviceData => dispatch => {
   socket.emit("removeDevice", deviceData);
   dispatch({
     type: REMOVE_DEVICE,
-    payload: payload
+    payload: deviceData.deviceId
   });
   dispatch(stateReset);
 };
