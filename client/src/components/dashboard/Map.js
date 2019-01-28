@@ -82,7 +82,7 @@ class Map extends Component {
     this.setState(state => {
       let mapPins = state.mapPins;
 
-      console.log(mapPins);
+      console.log(mapPins[deviceId]);
       console.log(`deviceId ${deviceId}`);
 
       if (mapPins[deviceId]) {
@@ -91,6 +91,9 @@ class Map extends Component {
       }
 
       delete mapPins[deviceId];
+
+      console.log("after delete");
+      console.log(mapPins[deviceId]);
 
       return { mapPins };
     });
