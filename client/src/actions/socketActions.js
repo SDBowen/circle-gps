@@ -5,7 +5,7 @@ import { UPDATE_COORDS, ADD_DEVICE, REMOVE_DEVICE, STATE_RESET } from "./types";
 // localhost or production server
 const socket = io.connect("https://intense-everglades-50142.herokuapp.com/");
 
-export const stateReset = dispatch => {
+export const stateReset = () => dispatch => {
   dispatch({
     type: STATE_RESET
   });
