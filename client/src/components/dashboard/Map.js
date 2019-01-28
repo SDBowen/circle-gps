@@ -82,7 +82,7 @@ class Map extends Component {
     console.log(mapPins[deviceId]);
     console.log(`deviceId ${deviceId}`);
 
-    this.state.mainMap.removeLayer(mapPins[deviceId]);
+    this.state.mainMap.removeLayer(this.state.mapPins[deviceId]);
 
     // this.props.stateReset();
   };
