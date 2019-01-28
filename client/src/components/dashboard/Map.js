@@ -58,24 +58,26 @@ class Map extends Component {
           fillOpacity: 0.5
         }).addTo(this.state.mainMap);
 
-        let mapPins = this.state.mapPins;
+        this.setState(state => {
+          let mapPins = state.mapPins;
+          mapPins[incomingDeviceId] = newDeviceMarker;
 
-        mapPins[incomingDeviceId] = newDeviceMarker;
-
-        this.setState({ mapPins });
+          return { mapPins };
+        });
       }
 
       if (this.props.socket.removeDevice) {
-        this.removeMapPin();
+        const deviceId = this.props.socket.removeDevice;
+
+        this.removeMapPin(deviceId);
       }
     }
   }
 
-  removeMapPin = () => {
+  removeMapPin = deviceId => {
     console.log("remove fires");
 
     this.setState(state => {
-      const deviceId = this.props.socket.removeDevice;
       let preMapPins = state.mapPins;
 
       console.log(`deviceId ${deviceId}`);
