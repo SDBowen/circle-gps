@@ -42,7 +42,7 @@ class Map extends Component {
       // Check socket data for change
       JSON.stringify(this.props.socket) !== JSON.stringify(prevProps.socket)
     ) {
-      if (this.props.socket.lastCoords.id) {
+      if (this.props.socket.lastCoords) {
         const lat = this.props.socket.lastCoords.lat;
         const lon = this.props.socket.lastCoords.lon;
         const incomingDeviceId = this.props.socket.lastCoords.id;
