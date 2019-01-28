@@ -66,6 +66,9 @@ class Map extends Component {
       if (this.props.socket.removeDevice) {
         const deviceId = this.props.socket.removeDevice;
 
+        console.log("remove fires");
+        console.log(`state.mapPins[deviceId]: ${this.state.mapPins[deviceId]}`);
+
         if (this.state.mapPins[deviceId]) {
           this.state.mainMap.removeLayer(this.state.mapPins[deviceId]);
         }
