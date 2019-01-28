@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { stateReset } from "../../actions/socketActions";
 
 import "../../../node_modules/leaflet/dist/leaflet.css";
 import L from "leaflet";
@@ -78,6 +79,8 @@ class Map extends Component {
         delete mapPins[deviceId];
 
         this.setState({ mapPins });
+
+        this.props.stateReset();
       }
     }
   }
@@ -95,7 +98,11 @@ const mapStateToProps = state => ({
 
 Map.propTypes = {
   auth: PropTypes.object.isRequired,
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
+  stateReset: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps)(Map);
+export default connect(
+  mapStateToProps,
+  { stateReset }
+)(Map);
