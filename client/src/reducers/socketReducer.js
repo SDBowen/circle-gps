@@ -17,16 +17,20 @@ export default function(state = initialState, action) {
       return {
         ...state,
         removeDevice: null,
+        lastCoords: null,
         addDevice: action.payload
       };
     case REMOVE_DEVICE:
       return {
         ...state,
+        lastCoords: null,
+        addDevice: null,
         removeDevice: action.payload
       };
     case STATE_RESET:
       return {
         ...state,
+        lastCoords: null,
         removeDevice: null,
         addDevice: null
       };
