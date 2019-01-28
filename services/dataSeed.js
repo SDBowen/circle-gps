@@ -10,6 +10,16 @@ const DataSeed = {
       },
       {
         user,
+        deviceId: "ctared",
+        deviceName: "Red Line"
+      },
+      {
+        user,
+        deviceId: "cta4",
+        deviceName: "Cottage Grove"
+      },
+      {
+        user,
         deviceId: "cta9",
         deviceName: "Ashland"
       },
@@ -25,8 +35,33 @@ const DataSeed = {
       },
       {
         user,
+        deviceId: "cta34",
+        deviceName: "South Michigan"
+      },
+      {
+        user,
+        deviceId: "cta49",
+        deviceName: "Western"
+      },
+      {
+        user,
+        deviceId: "cta55",
+        deviceName: "Garfield"
+      },
+      {
+        user,
         deviceId: "cta53",
         deviceName: "Pulaski"
+      },
+      {
+        user,
+        deviceId: "cta60",
+        deviceName: "Blue Island"
+      },
+      {
+        user,
+        deviceId: "cta62",
+        deviceName: "Archer"
       }
     )
       .then(devices => {
