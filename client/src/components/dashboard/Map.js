@@ -80,17 +80,19 @@ class Map extends Component {
     console.log("remove fires");
 
     this.setState(state => {
-      let preMapPins = state.mapPins;
+      let mapPins = state.mapPins;
 
+      console.log(mapPins);
       console.log(`deviceId ${deviceId}`);
 
-      if (preMapPins[deviceId]) {
-        this.state.mainMap.removeLayer(preMapPins[deviceId]);
+      if (mapPins[deviceId]) {
+        console.log("inner remove fires");
+        this.state.mainMap.removeLayer(mapPins[deviceId]);
       }
 
-      delete preMapPins[deviceId];
+      delete mapPins[deviceId];
 
-      return { mapPins: preMapPins };
+      return { mapPins };
     });
 
     this.props.stateReset();
