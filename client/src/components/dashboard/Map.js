@@ -66,12 +66,12 @@ class Map extends Component {
       }
 
       if (this.props.socket.removeDevice) {
-        this.addMapPin();
+        this.removeMapPin();
       }
     }
   }
 
-  addMapPin = () => {
+  removeMapPin = () => {
     console.log("remove fires");
 
     this.setState((state, props) => {
