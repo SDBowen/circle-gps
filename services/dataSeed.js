@@ -13,11 +13,11 @@ const DataSeed = {
         deviceId: "ctared",
         deviceName: "Red Line"
       },
-      {
-        user,
-        deviceId: "cta4",
-        deviceName: "Cottage Grove"
-      },
+      // {
+      //   user,
+      //   deviceId: "cta4",
+      //   deviceName: "Cottage Grove"
+      // },
       {
         user,
         deviceId: "cta9",
@@ -33,31 +33,31 @@ const DataSeed = {
         deviceId: "cta22",
         deviceName: "Clark"
       },
-      {
-        user,
-        deviceId: "cta34",
-        deviceName: "South Michigan"
-      },
+      // {
+      //   user,
+      //   deviceId: "cta34",
+      //   deviceName: "South Michigan"
+      // },
       {
         user,
         deviceId: "cta49",
         deviceName: "Western"
       },
-      {
-        user,
-        deviceId: "cta55",
-        deviceName: "Garfield"
-      },
-      {
-        user,
-        deviceId: "cta53",
-        deviceName: "Pulaski"
-      },
-      {
-        user,
-        deviceId: "cta60",
-        deviceName: "Blue Island"
-      },
+      // {
+      //   user,
+      //   deviceId: "cta55",
+      //   deviceName: "Garfield"
+      // },
+      // {
+      //   user,
+      //   deviceId: "cta53",
+      //   deviceName: "Pulaski"
+      // },
+      // {
+      //   user,
+      //   deviceId: "cta60",
+      //   deviceName: "Blue Island"
+      // },
       {
         user,
         deviceId: "cta62",
