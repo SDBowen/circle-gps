@@ -8,7 +8,7 @@
   },
   "scripts": {
     "server": "nodemon --delay 1500ms index.js",
-    "client": "npm start --prefix client",
+    "client": "npm start --prefix ../client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "start": "node index.js",
     "heroku-postbuild": "cd client && npm install && npm run build"
@@ -19,6 +19,7 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "concurrently": "^4.1.0",
+    "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.4.0",
     "mongoose": "^5.4.2",

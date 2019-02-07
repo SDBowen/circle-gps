@@ -1,3 +1,5 @@
+require("dotenv").config({ path: ".env" });
+
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -16,15 +18,11 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// DB config
-const db = "mongodb://CircleGPS:CIRCLEprod13@ds149984.mlab.com:49984/circlegps";
-const { options } = { useNewUrlParser: true };
-
 // Connect to DB
 mongoose
   .connect(
-    db,
-    options
+    process.env.MONGO_URI,
+    { useNewUrlParser: true }
   )
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
@@ -45,7 +43,7 @@ app.use("/api/coords", coords);
 
 // Handles any requests that don't match the ones above
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname + "/client/build/index.html"));
+  res.sendFile(path.join(`${__dirname}/client/build/index.html`));
 });
 
 // Start server
