@@ -1,24 +1,24 @@
-import React, { Component } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import React, { Component } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import jwt_decode from "jwt-decode";
-import setAuthToken from "./utils/setAuthToken";
-import { setCurrentUser, logoutUser } from "./actions/authActions";
-import { clearCurrentProfile } from "./actions/profileActions";
+import jwt_decode from 'jwt-decode';
+import setAuthToken from './utils/setAuthToken';
+import { setCurrentUser, logoutUser } from './actions/authActions';
+import { clearCurrentProfile } from './actions/profileActions';
 
-import { Provider } from "react-redux";
-import store from "./store";
+import { Provider } from 'react-redux';
+import store from './store';
 
-import PrivateRoute from "./components/common/privateRoute";
+import PrivateRoute from './components/common/privateRoute';
 
-import Register from "./components/auth/register";
-import Login from "./components/auth/login";
-import Dashboard from "./components/dashboard/Dashboard";
-import CreateProfile from "./components/create-profile/CreateProfile";
+import Register from './components/auth/register';
+import Login from './components/auth/login';
+import Dashboard from './components/dashboard/Dashboard';
+import CreateProfile from './components/create-profile/CreateProfile';
 
-import { receiveCoordinates } from "./actions/socketActions";
+import { receiveCoordinates } from './actions/socketActions';
 
-import "./App.scss";
+import './App.scss';
 
 // Initialize socketio listener
 receiveCoordinates(store.dispatch);
@@ -42,7 +42,7 @@ if (localStorage.loginJwt) {
     // Clear user profile
     store.dispatch(clearCurrentProfile());
     // Redirect to login screen
-    window.location.href = "/login";
+    window.location.href = '/login';
   }
 }
 
@@ -50,7 +50,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      user: "",
+      user: '',
       isAuthenticated: false
     };
   }
@@ -68,11 +68,7 @@ class App extends Component {
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
               </Switch>
               <Switch>
-                <PrivateRoute
-                  exact
-                  path="/add-device"
-                  component={CreateProfile}
-                />
+                <PrivateRoute exact path="/add-device" component={CreateProfile} />
               </Switch>
             </div>
           </div>
