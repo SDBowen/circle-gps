@@ -6,9 +6,7 @@ const DeviceManager = {
   deviceList: {},
   // On connect, add user socket id to device list
   onConnect: client => {
-    if (
-      !Object.prototype.hasOwnProperty.call(DeviceManager.deviceList, client)
-    ) {
+    if (!Object.prototype.hasOwnProperty.call(DeviceManager.deviceList, client)) {
       DeviceManager.deviceList[client.id] = {};
       DeviceManager.deviceList[client.id].user = undefined;
       DeviceManager.deviceList[client.id].devices = [];
@@ -18,9 +16,7 @@ const DeviceManager = {
   addUser: (clientId, userId) => {
     // ADD CHECK FOR USER ALREADY IN DEVICE LIST
     DeviceManager.deviceList[clientId].user = userId;
-    console.log(
-      `DeviceManager.addUser: ${JSON.stringify(DeviceManager.deviceList)}`
-    );
+    console.log(`DeviceManager.addUser: ${JSON.stringify(DeviceManager.deviceList)}`);
   },
   // Add user selected device to device list
   addDevice: (deviceId, client) => {
@@ -28,23 +24,17 @@ const DeviceManager = {
     if (DeviceManager.deviceList[client].devices.indexOf(deviceId) === -1) {
       DeviceManager.deviceList[client].devices.push(deviceId);
     }
-    console.log(
-      `DeviceManager.addDevice: ${JSON.stringify(DeviceManager.deviceList)}`
-    );
+    console.log(`DeviceManager.addDevice: ${JSON.stringify(DeviceManager.deviceList)}`);
   },
   // Remove user selected device from device list
   removeDevice: (deviceId, client) => {
     // ADD HANDLE NULL CLIENT VARIABLE
-    const deviceIndex = DeviceManager.deviceList[client].devices.indexOf(
-      deviceId
-    );
+    const deviceIndex = DeviceManager.deviceList[client].devices.indexOf(deviceId);
 
     if (deviceIndex !== -1) {
       DeviceManager.deviceList[client].devices.splice(deviceIndex, 1);
     }
-    console.log(
-      `DeviceManager.removeDevice: ${JSON.stringify(DeviceManager.deviceList)}`
-    );
+    console.log(`DeviceManager.removeDevice: ${JSON.stringify(DeviceManager.deviceList)}`);
   },
   // When coordinates are received, check if user is listening for device
   usersListeningForDevice: deviceId => {
@@ -62,9 +52,7 @@ const DeviceManager = {
   // Delete user from device list
   onDisconnect: client => {
     delete DeviceManager.deviceList[client];
-    console.log(
-      `DeviceManager.onDisconnect: ${JSON.stringify(DeviceManager.deviceList)}`
-    );
+    console.log(`DeviceManager.onDisconnect: ${JSON.stringify(DeviceManager.deviceList)}`);
   }
 };
 

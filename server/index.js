@@ -14,14 +14,14 @@ const coords = require('./routes/api/coords');
 
 const app = express();
 
-// Body parser moddleware
+// Body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Connect to DB
 mongoose
   .connect(process.env.MONGO_URI, { useNewUrlParser: true })
-  .then(() => console.log('MongoDB Connected'))
+  // .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
 
 // Serve the static files from the React app
@@ -46,7 +46,7 @@ app.get('*', (req, res) => {
 // Start server
 const port = process.env.PORT || 4000;
 const server = app.listen(port, () => {
-  console.log(`Server listening for requests on port ${port}`);
+  // console.log(`Server listening for requests on port ${port}`);
 });
 
 // Socket setup
@@ -70,3 +70,6 @@ app.io.on('connection', client => {
 
   console.log('Made socket connection', client.id);
 });
+
+// For test
+module.exports = app;

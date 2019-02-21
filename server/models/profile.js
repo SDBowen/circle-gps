@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
@@ -6,7 +6,7 @@ const { Schema } = mongoose;
 const ProfileSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
-    ref: "users"
+    ref: 'users'
   },
   deviceId: {
     type: String,
@@ -18,6 +18,6 @@ const ProfileSchema = new Schema({
   }
 });
 
-const Profile = mongoose.model("profile", ProfileSchema);
+const Profile = mongoose.model('profile', ProfileSchema);
 
 module.exports = Profile;
