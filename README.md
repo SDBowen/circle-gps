@@ -8,22 +8,22 @@ CircleGPS is live at [https://app.circlegps.com/dashboard].
 
 ### Demo Login
 
-A demo login option is offered to allow users to preview the current state of the application. The account is loaded with a few devices to interact with. Coordinates for these devices comes from the Chicago Public Transit API, and is real-time coordinates from the cities buses and trains.
+A demo login option is offered to allow users to preview the current state of the application. The account is loaded with a few devices to interact with. Coordinates for these devices come from the Chicago Transit Authority API, providing real-time coordinates from the cities buses and trains.
 
 Users are unable to add their own devices to the demo account.
 
 ### Map Dashboard
 
-The map dashboard shows all devices available to view. Clicking on a device will subscribe the user to begin receiving location data for that device. On the next location update from that device, its location will be presented on the map by a red pin. The timing of these updates is dependent on the devices settings (ten seconds for the demo account devices).
+The map dashboard displays all devices available to the account, as well as, a map to view the current location of these devices. Selecting a device will subscribe the user to begin receiving location data for that device. When subscribed to a device, its location will be presented on the map by a red pin. The initial pin may take some moments to appear, as the location needs to be received by the device. The timing of these updates is dependent on the devices settings (10 seconds for the demo account devices).
 
 To remove a device from being tracked, select it again from the menu.
 
 ### Settings Page
 
-The Settings page can be accessed from the Map Dashboard. Within the setting's page, a user is able to add GPS devices they would like to track. There are two required fields to create a new device:
+The Settings page can be accessed from the Map Dashboard. Within the setting's page, a user is able to add a new device. There are two required fields to create a new device:
 
-Device ID - This is a unique ID you assign to your device. This ID must be included when your device sends coordinates to the CircleGPS API.
-Device Name - Name that will be displayed on the Map Dashboard.
+- **Device ID** - Unique ID to assign to the device. This ID is used when the device sends data to the CircleGPS API.
+- **Device Name** - Name that will be displayed on the Map Dashboard for this device.
 
 ## CircleGPS API
 
