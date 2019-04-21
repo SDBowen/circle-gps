@@ -51,7 +51,7 @@ const DeviceManager = {
   },
   // Delete user from device list
   onDisconnect: client => {
-    delete DeviceManager.deviceList[client];
+    delete DeviceManager.deviceList[client.id];
     console.log(`DeviceManager.onDisconnect: ${JSON.stringify(DeviceManager.deviceList)}`);
   }
 };
