@@ -23,7 +23,6 @@ describe('Device Manager', () => {
     it('removes client on disconnect', done => {
       DeviceManager.onConnect(clientOne);
       DeviceManager.onDisconnect(clientOne);
-      console.log(DeviceManager.deviceList);
       expect(DeviceManager.deviceList).be.empty;
       done();
     });
