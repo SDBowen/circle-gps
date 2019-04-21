@@ -26,14 +26,14 @@ describe('Device Manager', () => {
       expect(DeviceManager.deviceList).be.empty;
       done();
     });
-    it('Adds user on user login', done => {
+    it('adds user on user login', done => {
       DeviceManager.onConnect(clientOne);
       DeviceManager.addUser(clientOne.id, userOne);
 
       expect(DeviceManager.deviceList[clientOne.id].user).to.equal(userOne);
       done();
     });
-    it('Adds user selected device', done => {
+    it('adds user selected device', done => {
       DeviceManager.onConnect(clientOne);
       DeviceManager.addUser(clientOne.id, userOne);
       DeviceManager.addDevice(deviceOne, clientOne.id);
@@ -41,7 +41,7 @@ describe('Device Manager', () => {
       expect(DeviceManager.deviceList[clientOne.id].devices).to.have.members([deviceOne]);
       done();
     });
-    it('Removes user selected device', done => {
+    it('removes user selected device', done => {
       DeviceManager.onConnect(clientOne);
       DeviceManager.addUser(clientOne.id, userOne);
       DeviceManager.addDevice(deviceOne, clientOne.id);
