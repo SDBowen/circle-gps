@@ -1,30 +1,29 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { stateReset } from "../../actions/socketActions";
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { stateReset } from '../../actions/socketActions';
 
-import "../../../node_modules/leaflet/dist/leaflet.css";
-import L from "leaflet";
+import '../../../node_modules/leaflet/dist/leaflet.css';
+import L from 'leaflet';
 
 class Map extends Component {
   constructor(props) {
     super(props);
     this.state = {
       mapPins: {},
-      mainMap: {}
+      map: {}
     };
   }
 
   componentDidMount() {
     // set up the map
     let map;
-    map = new L.Map("mapid");
+    map = new L.Map('mapid');
 
     // create the tile layer with attribution
-    var osmUrl = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
-    var osmAttrib =
-      'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a>';
+    var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+    var osmAttrib = 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a>';
 
     var osmTileLayer = new L.TileLayer(osmUrl, {
       attribution: osmAttrib
@@ -34,7 +33,7 @@ class Map extends Component {
     map.setView(new L.LatLng(41.896151, -87.7349909), 12);
     map.addLayer(osmTileLayer);
 
-    this.setState({ mainMap: map });
+    this.setState({ map });
   }
 
   componentDidUpdate(prevProps) {
@@ -54,10 +53,10 @@ class Map extends Component {
           // Create new pin
 
           const newDeviceMarker = L.circle([lat, lon], 100, {
-            color: "red",
-            fillColor: "#f03",
+            color: 'red',
+            fillColor: '#f03',
             fillOpacity: 0.5
-          }).addTo(this.state.mainMap);
+          }).addTo(this.state.map);
 
           let mapPins = { ...this.state.mapPins };
           mapPins[incomingDeviceId] = newDeviceMarker;
@@ -79,8 +78,8 @@ class Map extends Component {
   }
 
   removeMapPin = (pin, deviceId) => {
-    if (this.state.mainMap.hasLayer(pin)) {
-      this.state.mainMap.removeLayer(pin);
+    if (this.state.map.hasLayer(pin)) {
+      this.state.map.removeLayer(pin);
     }
 
     let mapPins = { ...this.state.mapPins };
