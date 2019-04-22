@@ -1,14 +1,14 @@
-const express = require("express");
+const express = require('express');
 
 const router = express.Router();
 
 // Load services
-const { usersListeningForDevice } = require("../../services/deviceManager");
+const { usersListeningForDevice } = require('../../services/deviceManager');
 
 // @Route   POST api/coords/:id
 // @Desc    Receive coordinates from device and relay to client
 // @Access  Public
-router.post("/:id", (req, res) => {
+router.post('/:id', (req, res) => {
   // Socket.io used for emit
   const { io } = req.app;
 
@@ -25,7 +25,7 @@ router.post("/:id", (req, res) => {
 
     // Send updated coordinates to active users
     activeUsers.forEach(user => {
-      io.to(user).emit("coordsUpdate", deviceData);
+      io.to(user).emit('coordsUpdate', deviceData);
       console.log(`activeUsersSocketId: ${user}`);
     });
   }
