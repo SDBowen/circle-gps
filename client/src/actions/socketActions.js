@@ -1,9 +1,9 @@
-import io from "socket.io-client";
+import io from 'socket.io-client';
 
-import { UPDATE_COORDS, ADD_DEVICE, REMOVE_DEVICE, STATE_RESET } from "./types";
+import { UPDATE_COORDS, ADD_DEVICE, REMOVE_DEVICE, STATE_RESET } from './types';
 
 // localhost or production server
-const socket = io.connect("https://intense-everglades-50142.herokuapp.com/");
+const socket = io.connect(process.env.REACT_APP_API_URL);
 
 export const stateReset = () => dispatch => {
   dispatch({
@@ -12,7 +12,7 @@ export const stateReset = () => dispatch => {
 };
 
 export const addDevice = deviceData => dispatch => {
-  socket.emit("addDevice", deviceData);
+  socket.emit('addDevice', deviceData);
   dispatch({
     type: ADD_DEVICE,
     payload: deviceData.deviceId
@@ -20,7 +20,7 @@ export const addDevice = deviceData => dispatch => {
 };
 
 export const removeDevice = deviceData => dispatch => {
-  socket.emit("removeDevice", deviceData);
+  socket.emit('removeDevice', deviceData);
   dispatch({
     type: REMOVE_DEVICE,
     payload: deviceData.deviceId
@@ -28,11 +28,11 @@ export const removeDevice = deviceData => dispatch => {
 };
 
 export const addUser = userData => () => {
-  socket.emit("addUser", userData);
+  socket.emit('addUser', userData);
 };
 
 export const receiveCoordinates = dispatch => {
-  socket.on("coordsUpdate", payload => {
+  socket.on('coordsUpdate', payload => {
     dispatch({
       type: UPDATE_COORDS,
       payload: payload

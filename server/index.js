@@ -45,9 +45,7 @@ app.get('*', (req, res) => {
 
 // Start server
 const port = process.env.PORT || 4000;
-const server = app.listen(port, () => {
-  // console.log(`Server listening for requests on port ${port}`);
-});
+const server = app.listen(port, () => {});
 
 // Socket setup
 app.io = socket(server);
