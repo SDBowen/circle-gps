@@ -6,8 +6,8 @@ import { logoutUser } from '../../actions/authActions';
 import { clearCurrentProfile } from '../../actions/profileActions';
 
 import Navbar from '../layout/Navbar';
-import Map from './Map';
-import SideNav from './SideNav';
+import Map from '../map/Map';
+import SideNav from '../sidenav/SideNav';
 
 class Dashboard extends Component {
   onLogoutClick = event => {

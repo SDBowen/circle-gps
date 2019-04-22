@@ -1,17 +1,21 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { getCurrentProfile } from "../../actions/profileActions";
-import { addDevice, removeDevice, addUser } from "../../actions/socketActions";
-import { Link } from "react-router-dom";
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getCurrentProfile } from '../../actions/profileActions';
+import { addDevice, removeDevice, addUser } from '../../actions/socketActions';
 
-import Icon from "../icons";
-import Device from "./Device";
+import Icon from '../icons';
+import Device from './Device';
 
 class SideNav extends Component {
+  componentDidMount() {
+    this.props.getCurrentProfile();
+    this.props.addUser(this.props.auth.user.id);
+  }
+
   selectDevice = (deviceId, activeStatus) => {
-    let payload = {};
+    const payload = {};
 
     payload.deviceId = deviceId;
     payload.userId = this.props.auth.user.id;
@@ -22,11 +26,6 @@ class SideNav extends Component {
       this.props.removeDevice(payload);
     }
   };
-
-  componentDidMount() {
-    this.props.getCurrentProfile();
-    this.props.addUser(this.props.auth.user.id);
-  }
 
   render() {
     const { profile, loading } = this.props.profile;
@@ -45,32 +44,26 @@ class SideNav extends Component {
           </ul>
         </nav>
       );
-    } else {
-      return (
-        <nav className="sidebar">
-          <ul className="side-nav">
-            <li className="">
-              <a href="#" className="side-nav__link">
-                <Icon className="side-nav__icon" name="target" />
-                <span>Devices</span>
-              </a>
-            </li>
-            <div>
-              {/* <Device profile={profile} selectDevice={this.selectDevice} /> */}
-              {profile.map((device, index) => {
-                return (
-                  <Device
-                    key={index}
-                    device={device}
-                    selectDevice={this.selectDevice}
-                  />
-                );
-              })}
-            </div>
-          </ul>
-        </nav>
-      );
     }
+
+    return (
+      <nav className="sidebar">
+        <ul className="side-nav">
+          <li className="">
+            <a href="#" className="side-nav__link">
+              <Icon className="side-nav__icon" name="target" />
+              <span>Devices</span>
+            </a>
+          </li>
+          <div>
+            {/* <Device profile={profile} selectDevice={this.selectDevice} /> */}
+            {profile.map((device, index) => {
+              return <Device key={index} device={device} selectDevice={this.selectDevice} />;
+            })}
+          </div>
+        </ul>
+      </nav>
+    );
   }
 }
 

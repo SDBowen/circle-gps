@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 class Device extends Component {
   constructor(props) {
@@ -20,9 +20,7 @@ class Device extends Component {
     return (
       <li
         className={
-          this.state.activeStatus
-            ? "side-nav__item side-nav__item--active"
-            : "side-nav__item"
+          this.state.activeStatus ? 'side-nav__item side-nav__item--active' : 'side-nav__item'
         }
       >
         <a
