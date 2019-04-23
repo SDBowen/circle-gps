@@ -1,42 +1,29 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-class Device extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeStatus: false
-    };
-  }
+const Device = props => {
+  const { device, selectDevice } = props;
 
-  handleClick = deviceId => {
-    const currentState = this.state.activeStatus;
+  return (
+    <li className={device.active ? 'side-nav__item side-nav__item--active' : 'side-nav__item'}>
+      <a
+        href="#"
+        className="side-nav__link"
+        onClick={event => {
+          event.preventDefault();
 
-    this.setState({ activeStatus: !currentState }, function() {
-      this.props.selectDevice(deviceId, this.state.activeStatus);
-    });
-  };
-
-  render() {
-    return (
-      <li
-        className={
-          this.state.activeStatus ? 'side-nav__item side-nav__item--active' : 'side-nav__item'
-        }
+          selectDevice(device.deviceId);
+        }}
       >
-        <a
-          href="#"
-          className="side-nav__link"
-          onClick={event => {
-            event.preventDefault();
+        <span>{device.deviceName}</span>
+      </a>
+    </li>
+  );
+};
 
-            this.handleClick(this.props.device.deviceId);
-          }}
-        >
-          <span>{this.props.device.deviceName}</span>
-        </a>
-      </li>
-    );
-  }
-}
+Device.propTypes = {
+  device: PropTypes.objectOf(PropTypes.object).isRequired,
+  selectDevice: PropTypes.func.isRequired
+};
 
 export default Device;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Icon from '../icons';
 import Device from './Device';
@@ -32,13 +33,18 @@ const SideNav = props => {
           </a>
         </li>
         <div>
-          {devices.map((item, index) => {
-            return <Device key={item.deviceId} device={item} selectDevice={props.selectDevice} />;
+          {Object.keys(devices).map(item => {
+            return <Device key={item} device={devices[item]} selectDevice={props.selectDevice} />;
           })}
         </div>
       </ul>
     </nav>
   );
+};
+
+SideNav.propTypes = {
+  devices: PropTypes.objectOf(PropTypes.object).isRequired,
+  selectDevice: PropTypes.func.isRequired
 };
 
 export default SideNav;

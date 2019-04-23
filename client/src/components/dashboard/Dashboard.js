@@ -15,18 +15,14 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      devices: []
+      devices: {}
     };
   }
 
   componentDidMount() {
     axios
       .get('/api/profile')
-      .then(res =>
-        this.setState({
-          devices: res.data
-        })
-      )
+      .then(res => this.buildDeviceObjects(res.data))
       .catch(err => console.log(err));
 
     this.props.addUser(this.props.auth.user.id);
@@ -39,17 +35,36 @@ class Dashboard extends Component {
     this.props.logoutUser();
   };
 
-  selectDevice = (deviceId, activeStatus) => {
+  selectDevice = deviceId => {
+    const { devices } = { ...this.state };
+    devices[deviceId].active = !devices[deviceId].active;
+
+    this.setState({ devices });
+
     const payload = {};
 
     payload.deviceId = deviceId;
     payload.userId = this.props.auth.user.id;
 
-    if (activeStatus) {
+    if (devices[deviceId].active) {
       this.props.addDevice(payload);
     } else {
       this.props.removeDevice(payload);
     }
+  };
+
+  buildDeviceObjects = items => {
+    let devices = {};
+
+    items.forEach(item => {
+      const { deviceId } = item;
+
+      devices[deviceId] = item;
+      devices[deviceId].active = false;
+    });
+    this.setState({
+      devices
+    });
   };
 
   render() {
