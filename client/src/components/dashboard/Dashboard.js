@@ -117,7 +117,7 @@ class Dashboard extends Component {
         <Navbar onLogoutClick={this.onLogoutClick} />
         <div className="content">
           <SideNav devices={devices} selectDevice={this.selectDevice} />
-          <Map devices={devices} deviceAction={deviceAction} />
+          <Map deviceAction={deviceAction} />
         </div>
       </div>
     );
@@ -135,8 +135,7 @@ Dashboard.propTypes = {
   removeDevice: PropTypes.func.isRequired,
   clearCurrentProfile: PropTypes.func.isRequired,
   logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.objectOf(PropTypes.object).isRequired,
-  stateReset: PropTypes.func.isRequired
+  auth: PropTypes.objectOf(PropTypes.object).isRequired
 };
 
 export default connect(
