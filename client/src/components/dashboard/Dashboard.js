@@ -20,23 +20,28 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
+    const { addUser, auth } = this.props;
+
     axios
       .get('/api/profile')
       .then(res => this.buildDeviceObjects(res.data))
       .catch(err => console.log(err));
 
-    this.props.addUser(this.props.auth.user.id);
+    addUser(auth.user.id);
   }
 
   onLogoutClick = event => {
+    const { clearCurrentProfile, logoutUser } = this.props;
     event.preventDefault();
 
-    this.props.clearCurrentProfile();
-    this.props.logoutUser();
+    clearCurrentProfile();
+    logoutUser();
   };
 
   selectDevice = deviceId => {
+    const { addDevice, removeDevice, auth } = this.props;
     const { devices } = { ...this.state };
+
     devices[deviceId].active = !devices[deviceId].active;
 
     this.setState({ devices });
@@ -44,17 +49,17 @@ class Dashboard extends Component {
     const payload = {};
 
     payload.deviceId = deviceId;
-    payload.userId = this.props.auth.user.id;
+    payload.userId = auth.user.id;
 
     if (devices[deviceId].active) {
-      this.props.addDevice(payload);
+      addDevice(payload);
     } else {
-      this.props.removeDevice(payload);
+      removeDevice(payload);
     }
   };
 
   buildDeviceObjects = items => {
-    let devices = {};
+    const devices = {};
 
     items.forEach(item => {
       const { deviceId } = item;
@@ -68,11 +73,13 @@ class Dashboard extends Component {
   };
 
   render() {
+    const { devices } = this.state;
+
     return (
       <div>
         <Navbar onLogoutClick={this.onLogoutClick} />
         <div className="content">
-          <SideNav devices={this.state.devices} selectDevice={this.selectDevice} />
+          <SideNav devices={devices} selectDevice={this.selectDevice} />
           <Map />
         </div>
       </div>
@@ -90,7 +97,7 @@ Dashboard.propTypes = {
   removeDevice: PropTypes.func.isRequired,
   clearCurrentProfile: PropTypes.func.isRequired,
   logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.objectOf(PropTypes.object).isRequired
 };
 
 export default connect(
