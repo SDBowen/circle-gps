@@ -12,7 +12,7 @@ const Navbar = props => {
           <img
             src="https://res.cloudinary.com/dk9vbfmw6/image/upload/v1548274709/circlegps-logo.png"
             alt="Logo"
-            class="logo__image"
+            className="logo__image"
           />
         </Link>
       </div>

@@ -99,7 +99,7 @@ class Map extends Component {
 }
 
 Map.propTypes = {
-  deviceAction: PropTypes.func.isRequired
+  deviceAction: PropTypes.objectOf(PropTypes.object).isRequired
 };
 
 export default Map;
