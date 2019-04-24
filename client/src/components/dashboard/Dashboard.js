@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
-import { logoutUser } from '../../actions/authActions';
-import { addUser, addDevice, removeDevice, stateReset } from '../../actions/socketActions';
-import { clearCurrentProfile } from '../../actions/profileActions';
+import socketIOClient from 'socket.io-client';
+import setAuthToken from '../../utils/setAuthToken';
 
 import Navbar from '../layout/Navbar';
 import Map from '../map/Map';
@@ -16,32 +14,42 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       devices: {},
-      deviceAction: {}
+      deviceAction: {},
+      response: false,
+      endpoint: process.env.REACT_APP_API_URL,
+      socket: false
     };
   }
 
   componentDidMount() {
-    const { addUser, auth } = this.props;
+    const { auth } = this.props;
+    const { endpoint } = this.state;
+    const socket = socketIOClient(endpoint);
 
     axios
       .get('/api/profile')
       .then(res => this.buildDeviceObjects(res.data))
       .catch(err => console.log(err));
 
-    addUser(auth.user.id);
+    socket.emit('addUser', auth.user.id);
+    socket.on('coordsUpdate', data => this.setState({ response: data }));
+
+    this.setState({ socket });
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
+    const { response } = this.state;
+
     if (
       // Check socket data for change
-      JSON.stringify(this.props.socket) !== JSON.stringify(prevProps.socket)
+      JSON.stringify(response) !== JSON.stringify(prevState.response)
     ) {
-      if (this.props.socket.lastCoords) {
+      if (response) {
         const data = {};
 
-        data.deviceId = this.props.socket.lastCoords.id;
-        data.lat = this.props.socket.lastCoords.lat;
-        data.lon = this.props.socket.lastCoords.lon;
+        data.deviceId = response.id;
+        data.lat = response.lat;
+        data.lon = response.lon;
 
         this.updateDeviceCoordinate(data);
       }
@@ -49,15 +57,22 @@ class Dashboard extends Component {
   }
 
   onLogoutClick = event => {
-    const { clearCurrentProfile, logoutUser } = this.props;
     event.preventDefault();
 
-    clearCurrentProfile();
-    logoutUser();
+    // clearCurrentProfile();
+    // Set profile to null
+
+    // Remove token from localstorage
+    localStorage.removeItem('loginJwt');
+    // Remove token from axios header
+    setAuthToken(false);
+    // TODO
+    // setCurrentUser({})
   };
 
   selectDevice = deviceId => {
-    const { addDevice, removeDevice, auth } = this.props;
+    const { socket } = this.state;
+    const { auth } = this.props;
     const { devices } = { ...this.state };
     const action = {};
 
@@ -74,9 +89,9 @@ class Dashboard extends Component {
     payload.userId = auth.user.id;
 
     if (devices[deviceId].active) {
-      addDevice(payload);
+      socket.emit('addDevice', payload);
     } else {
-      removeDevice(payload);
+      socket.emit('removeDevice', payload);
     }
   };
 
@@ -125,20 +140,11 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth,
-  socket: state.socket
+  auth: state.auth
 });
 
 Dashboard.propTypes = {
-  addUser: PropTypes.func.isRequired,
-  addDevice: PropTypes.func.isRequired,
-  removeDevice: PropTypes.func.isRequired,
-  clearCurrentProfile: PropTypes.func.isRequired,
-  logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.objectOf(PropTypes.object).isRequired
 };
 
-export default connect(
-  mapStateToProps,
-  { addUser, addDevice, removeDevice, logoutUser, clearCurrentProfile, stateReset }
-)(Dashboard);
+export default connect(mapStateToProps)(Dashboard);
