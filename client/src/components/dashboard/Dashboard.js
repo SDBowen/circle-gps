@@ -144,7 +144,9 @@ const mapStateToProps = state => ({
 });
 
 Dashboard.propTypes = {
-  auth: PropTypes.objectOf(PropTypes.object).isRequired
+  auth: PropTypes.shape({
+    isAuthenticated: PropTypes.bool
+  }).isRequired
 };
 
 export default connect(mapStateToProps)(Dashboard);
