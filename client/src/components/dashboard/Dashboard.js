@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import socketIOClient from 'socket.io-client';
 import setAuthToken from '../../utils/setAuthToken';
 
@@ -16,28 +15,21 @@ class Dashboard extends Component {
       devices: {},
       deviceAction: {},
       response: false,
-      endpoint: process.env.REACT_APP_API_URL,
       socket: false
     };
   }
 
   componentDidMount() {
-    const { auth } = this.props;
-    const { endpoint } = this.state;
-    const socket = socketIOClient(endpoint);
+    const socket = socketIOClient(process.env.REACT_APP_API_URL);
 
-    axios
-      .get('/api/profile')
-      .then(res => this.buildDeviceObjects(res.data))
-      .catch(err => console.log(err));
+    this.getUserDevices();
 
-    socket.emit('addUser', auth.user.id);
     socket.on('coordsUpdate', data => this.setState({ response: data }));
 
     this.setState({ socket });
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(_prevProps, prevState) {
     const { response } = this.state;
 
     if (
@@ -57,6 +49,7 @@ class Dashboard extends Component {
   }
 
   onLogoutClick = event => {
+    const { history } = this.props;
     event.preventDefault();
 
     // clearCurrentProfile();
@@ -68,11 +61,11 @@ class Dashboard extends Component {
     setAuthToken(false);
     // TODO
     // setCurrentUser({})
+    history.push('/dashboard');
   };
 
   selectDevice = deviceId => {
     const { socket } = this.state;
-    const { auth } = this.props;
     const { devices } = { ...this.state };
     const action = {};
 
@@ -86,13 +79,20 @@ class Dashboard extends Component {
     const payload = {};
 
     payload.deviceId = deviceId;
-    payload.userId = auth.user.id;
 
+    console.log(payload);
     if (devices[deviceId].active) {
       socket.emit('addDevice', payload);
     } else {
       socket.emit('removeDevice', payload);
     }
+  };
+
+  getUserDevices = () => {
+    axios
+      .get('/api/profile')
+      .then(res => this.buildDeviceObjects(res.data))
+      .catch(err => console.log(err));
   };
 
   buildDeviceObjects = items => {
@@ -139,14 +139,8 @@ class Dashboard extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  auth: state.auth
-});
-
 Dashboard.propTypes = {
-  auth: PropTypes.shape({
-    isAuthenticated: PropTypes.bool
-  }).isRequired
+  history: PropTypes.objectOf(PropTypes.object).isRequired
 };
 
-export default connect(mapStateToProps)(Dashboard);
+export default Dashboard;

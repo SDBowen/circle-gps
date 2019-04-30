@@ -1,18 +1,21 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import PropTypes from "prop-types";
-import { createProfile } from "../../actions/profileActions";
-import { Link } from "react-router-dom";
+import React, { Component } from 'react';
+import axios from 'axios';
+import { withRouter, Link } from 'react-router-dom';
 
 class CreateProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      deviceId: "",
-      deviceName: "",
+      deviceId: '',
+      deviceName: '',
       errors: {}
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
   }
 
   // State is updated on user input
@@ -31,23 +34,26 @@ class CreateProfile extends Component {
       deviceName: this.state.deviceName
     };
 
-    this.props.createProfile(deviceData, this.props.history);
+    this.createProfile(deviceData, this.props.history);
   };
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors });
-    }
-  }
+  createProfile = (data, history) => {
+    axios
+      .post('/api/profile', data)
+      .then(res => history.push('/dashboard'))
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   render() {
     const { errors } = this.state;
     return (
       <div>
-        <div class="section-settings">
-          <div class="settings-box">
-            <div class="settings-box__header">
-              <div class="settings-box__option">
+        <div className="section-settings">
+          <div className="settings-box">
+            <div className="settings-box__header">
+              <div className="settings-box__option">
                 <p>New Device</p>
               </div>
               <div className="settings-box__links-box">
@@ -56,8 +62,8 @@ class CreateProfile extends Component {
                 </div>
               </div>
             </div>
-            <form class="settings-box__form" onSubmit={this.onSubmit}>
-              <div class="settings-box__device-id">
+            <form className="settings-box__form" onSubmit={this.onSubmit}>
+              <div className="settings-box__device-id">
                 <input
                   type="text"
                   name="deviceId"
@@ -66,11 +72,9 @@ class CreateProfile extends Component {
                   onChange={this.onChange}
                 />
                 {/* If errors, display to user */}
-                {errors.device && (
-                  <p class="settings-box__error">{errors.device}</p>
-                )}
+                {errors.device && <p className="settings-box__error">{errors.device}</p>}
               </div>
-              <div class="settings-box__device-name">
+              <div className="settings-box__device-name">
                 <input
                   type="text"
                   name="deviceName"
@@ -79,9 +83,9 @@ class CreateProfile extends Component {
                   onChange={this.onChange}
                 />
               </div>
-              <div class="settings-box__submit">
+              <div className="settings-box__submit">
                 <input
-                  class="settings-box__submit-button"
+                  className="settings-box__submit-button"
                   type="submit"
                   value="Add Device  >"
                 />
@@ -94,17 +98,4 @@ class CreateProfile extends Component {
   }
 }
 
-CreateProfile.propTypes = {
-  profile: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
-};
-
-const mapStateToProps = state => ({
-  profile: state.profile,
-  errors: state.errors
-});
-
-export default connect(
-  mapStateToProps,
-  { createProfile }
-)(withRouter(CreateProfile));
+export default withRouter(CreateProfile);
